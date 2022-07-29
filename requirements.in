@@ -1,0 +1,11 @@
+prefect>=2
+
+beautifulsoup4
+mechanicalsoup
+
+# development
+black
+flake8
+isort
+mypy
+pytest

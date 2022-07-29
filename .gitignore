@@ -1,0 +1,7 @@
+__pycache__
+*.pyc
+.bookkeeping
+.mypy_cache
+.python-version
+.storage-credentials.json
+.vscode
