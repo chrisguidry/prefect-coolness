@@ -85,7 +85,5 @@ def compute_net_marvin_score(negative_mentions: int, positive_mentions: int) -> 
     return negative_mentions / positive_mentions
 
 
-Deployment(name="marvin", flow=crawl_prefect_blog)
-
 if __name__ == "__main__":
     crawl_prefect_blog()

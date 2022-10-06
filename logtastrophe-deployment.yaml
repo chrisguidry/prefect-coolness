@@ -1,0 +1,39 @@
+###
+### A complete description of a Prefect Deployment for flow 'logtastrophe'
+###
+name: logtastrophe-minutely
+description: null
+version: 5d870f1516deb940e33e7650a7b75ebc
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters: {}
+schedule:
+  cron: '* * * * *'
+  timezone: null
+  day_or: true
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: logtastrophe
+manifest_path: null
+storage: null
+path: /Users/chris/src/github.com/chrisguidry/prefect-coolness
+entrypoint: logtastrophe.py:logtastrophe
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties: {}
+  required: null
+  definitions: null

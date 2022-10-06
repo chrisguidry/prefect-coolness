@@ -1,0 +1,35 @@
+###
+### A complete description of a Prefect Deployment for flow 'logtastrophe'
+###
+name: logtastrophe-on-demand
+description: null
+tags: []
+schedule: null
+parameters: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command:
+  - python
+  - -m
+  - prefect.engine
+  stream_output: true
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: logtastrophe
+manifest_path: logtastrophe-manifest.json
+storage:
+  basepath: /Users/chris/src/github.com/chrisguidry/prefect-coolness
+  _is_anonymous: true
+  _block_document_name: anonymous-ca7cdc68-efdb-45db-96ab-6a06a596c38f
+  _block_document_id: b38a9505-dff5-401a-9115-49868c6eef8f
+  _block_type_slug: local-file-system
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties: {}
+  required: null
+  definitions: null
