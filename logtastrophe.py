@@ -8,8 +8,7 @@ async def logtastrophe():
     logger = get_run_logger()
     logger.info("Y'all ready for this?")
     logger.info("Stop me if you've heard it...")
-    for i in range(10, 1, -1):
-        await bottles(i)
+    await bottles.map(range(5, 1, -1))
     logger.info("I guess you were")
 
 
