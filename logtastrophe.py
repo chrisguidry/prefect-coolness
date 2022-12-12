@@ -1,4 +1,4 @@
-from asyncio import get_event_loop
+import asyncio
 
 from prefect import flow, get_run_logger, task
 
@@ -8,7 +8,7 @@ async def logtastrophe():
     logger = get_run_logger()
     logger.info("Y'all ready for this?")
     logger.info("Stop me if you've heard it...")
-    await bottles.map(range(5, 1, -1))
+    await bottles.map(range(99, 1, -1))
     logger.info("I guess you were")
 
 
@@ -21,4 +21,4 @@ async def bottles(n: int):
 
 
 if __name__ == "__main__":
-    get_event_loop().run_until_complete(logtastrophe())
+    asyncio.run(logtastrophe())

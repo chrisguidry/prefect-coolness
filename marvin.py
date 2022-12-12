@@ -4,7 +4,6 @@ from typing import List
 
 import mechanicalsoup
 from prefect import flow, get_run_logger, task
-from prefect.deployments import Deployment
 from prefect.tasks import task_input_hash
 
 NEGATIVE_ENGINEERING = re.compile(r"(negative\s(\w+\s)*engineering)", re.IGNORECASE)

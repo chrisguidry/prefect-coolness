@@ -13,4 +13,4 @@ def map_flow(N):
 
 
 if __name__ == "__main__":
-    map_flow(500)
+    map_flow(100)

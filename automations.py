@@ -1,20 +1,38 @@
 import asyncio
+import time
 
 from httpx import AsyncClient
+from prefect import flow, get_run_logger
 from prefect.client.orion import get_client
+
+
+@flow
+def stimulus():
+    logger = get_run_logger()
+    logger.info("A stimulating flow")
+    time.sleep(30)
+
+
+@flow
+def response():
+    logger = get_run_logger()
+    logger.info("A responding flow")
+
 
 AUTOMATION = {
     "name": "Demo",
     "description": "Demo",
     "trigger": {
-        "expect": ["prefect.flow-run.Completed"],
+        "after": ["prefect.flow-run.Running"],
+        "expect": ["prefect.flow-run.*"],
+        "for_each": ["prefect.resource.id"],
         "match_related": {
             "prefect.resource.role": "flow",
-            "prefect.name": "response",
+            "prefect.resource.id": "prefect.flow.a73a9e15-b230-4c0a-ad91-dc1dea6bd97e",
         },
-        "posture": "Reactive",
-        "threshold": 1,
-        "within": 0,
+        "posture": "Proactive",
+        "threshold": 0,
+        "within": 5,
     },
     "actions": [
         {
