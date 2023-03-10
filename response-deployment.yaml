@@ -27,7 +27,7 @@ infrastructure:
 flow_name: response
 manifest_path: null
 storage: null
-path: /Users/chris/src/github.com/chrisguidry/prefect-coolness
+path: /home/chris/src/github.com/chrisguidry/prefect-coolness
 entrypoint: automations.py:response
 parameter_openapi_schema:
   title: Parameters

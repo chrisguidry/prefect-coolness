@@ -1,4 +1,5 @@
 import asyncio
+import random
 
 from prefect import flow, get_run_logger, task
 
@@ -8,7 +9,7 @@ async def logtastrophe():
     logger = get_run_logger()
     logger.info("Y'all ready for this?")
     logger.info("Stop me if you've heard it...")
-    await bottles.map(range(99, 1, -1))
+    await bottles.map(range(20, 1, -1))
     logger.info("I guess you were")
 
 
@@ -18,6 +19,8 @@ async def bottles(n: int):
     logger.info(f"{n} bottles of beer on the wall")
     logger.info(f"{n} bottles of beer!")
     logger.info(f"take one down, pass it around, {n-1} bottles of beer on the wall")
+    if random.random() < 0.01:
+        raise ValueError("oops, I dropped it")
 
 
 if __name__ == "__main__":

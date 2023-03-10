@@ -14,7 +14,7 @@ AUTOMATION = {
         },
         "posture": "Reactive",
         "threshold": 1,
-        "within": 0,
+        "within": 10,
     },
     "actions": [
         {
