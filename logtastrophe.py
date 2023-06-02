@@ -19,7 +19,7 @@ async def bottles(n: int):
     logger.info(f"{n} bottles of beer on the wall")
     logger.info(f"{n} bottles of beer!")
     logger.info(f"take one down, pass it around, {n-1} bottles of beer on the wall")
-    if random.random() < 0.01:
+    if random.random() < 0.10:
         raise ValueError("oops, I dropped it")
 
 

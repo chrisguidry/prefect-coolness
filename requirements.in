@@ -1,4 +1,4 @@
-prefect>=2.10.2
+prefect>=2.10.9
 
 beautifulsoup4
 mechanicalsoup
