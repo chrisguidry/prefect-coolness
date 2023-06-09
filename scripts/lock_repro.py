@@ -1,6 +1,6 @@
 import asyncio
 
-from prefect.client.orion import get_client
+from prefect.client.orchestration import get_client
 from prefect.engine import propose_state
 from prefect.states import Pending
 

@@ -3,7 +3,7 @@ import time
 
 from httpx import AsyncClient
 from prefect import flow, get_run_logger
-from prefect.client.orion import get_client
+from prefect.client.orchestration import get_client
 
 
 @flow

@@ -1,3 +1,9 @@
 {
-  "im-in-love": "friday.py:im_in_love"
+  "faily": "faily.py:faily",
+  "im-in-love": "friday.py:im_in_love",
+  "logtastrophe": "logtastrophe.py:logtastrophe",
+  "map-flow": "maptastrophe.py:map_flow",
+  "paramtastrophe": "paramtastrophe.py:paramtastrophe",
+  "response": "automations.py:response",
+  "stimulus": "automations.py:stimulus"
 }
