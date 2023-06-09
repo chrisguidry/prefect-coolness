@@ -31,6 +31,12 @@ WEBHOOKS = [
         """,
         "enabled": True,
     },
+    {
+        "name": "CloudEvents Demo",
+        "description": "Translates CloudEvents as Prefect Events",
+        "template": """{{ body|from_cloud_event(headers) }}""",
+        "enabled": True,
+    },
 ]
 
 
