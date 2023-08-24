@@ -1,11 +1,11 @@
 prefect>=2.10.17
+marvin
 
 beautifulsoup4
 mechanicalsoup
 
 # development
-black
-flake8
-isort
 mypy
 pytest
+ipython
+ruff
