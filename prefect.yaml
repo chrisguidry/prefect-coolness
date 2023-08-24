@@ -14,3 +14,10 @@ push: null
 pull:
 - prefect.projects.steps.set_working_directory:
     directory: /home/chris/src/github.com/chrisguidry/prefect-coolness
+
+deployments:
+- name: im-triggered
+  entrypoint: logtastrophe.py:logtastrophe
+  schedule: null
+  automations:
+  - expect: ["any.old.thing"]

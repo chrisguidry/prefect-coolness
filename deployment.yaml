@@ -1,6 +1,0 @@
-deployments:
-- name: im-triggered
-  entrypoint: logtastrophe.py:logtastrophe
-  schedule: null
-  triggers:
-  - expect: ["any.old.thing"]
