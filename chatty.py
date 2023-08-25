@@ -33,9 +33,7 @@ def generate_software_components(package_prefix: str) -> list[str]:
     ...
 
 
-@task(
-    cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1), refresh_cache=True
-)
+@task(cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1))
 def get_software_components(package_prefix: str) -> list[str]:
     get_run_logger().info("Generating software components for %r", package_prefix)
     return generate_software_components(package_prefix)
@@ -89,9 +87,7 @@ def generate_log_lines(component_name: str) -> list[Log]:
     ...
 
 
-@task(
-    cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1), refresh_cache=True
-)
+@task(cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1))
 def get_log_lines(component: str) -> list[tuple[str, str, float]]:
     get_run_logger().info("Generating log lines for %r", component)
     return [
@@ -107,7 +103,7 @@ def chatty():
         logger = getLogger(component)
         logs = get_log_lines(component)
         for level, message, duration in logs:
-            time.sleep(max(min(duration, 3.0), 0.0))
+            time.sleep(max(min(duration, 3.0), 0.1))
             match (level):
                 case "INFO":
                     logger.info(message)
@@ -116,9 +112,9 @@ def chatty():
                 case "ERROR":
                     logger.error(message)
 
-            # cause a crash every once in a while
-            if random.random() < 0.001:
-                raise Exception(message)
+                    # cause a crash every once in a while
+                    if random.random() < 0.01:
+                        raise Exception(message)
 
 
 if __name__ == "__main__":
