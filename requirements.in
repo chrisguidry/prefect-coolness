@@ -1,4 +1,4 @@
-prefect>=2.10.17
+prefect>=2.11.5
 marvin
 
 beautifulsoup4

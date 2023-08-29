@@ -1,5 +1,7 @@
 {
+  "chatty": "chatty.py:chatty",
   "faily": "faily.py:faily",
+  "hello": "resultastrope.py:hello",
   "im-in-love": "friday.py:im_in_love",
   "logtastrophe": "logtastrophe.py:logtastrophe",
   "map-flow": "maptastrophe.py:map_flow",

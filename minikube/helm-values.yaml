@@ -1,0 +1,6 @@
+worker:
+  cloudApiConfig:
+    accountId: 9b649228-0419-40e1-9e0d-44954b5c0ab6
+    workspaceId: dcf7f428-7b5f-4a2e-a1ce-ed26715a52b1
+  config:
+    workPool: minikube
