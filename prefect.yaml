@@ -97,3 +97,22 @@ deployments:
       tag: '{{ build-image.tag }}'
       credentials: '{{ prefect_docker.docker-registry-credentials.docker_registry_creds_name
         }}'
+- name: busted-image
+  version:
+  tags: []
+  description:
+  entrypoint: logtastrophe.py:logtastrophe
+  parameters: {}
+  work_pool:
+    name: minikube
+    work_queue_name:
+    job_variables:
+      image: '{{ build-image.image }}'
+  schedule:
+  build:
+  - prefect_docker.deployments.steps.build_docker_image:
+      requires: prefect-docker>=0.3.1
+      id: build-image
+      dockerfile: auto
+      image_name: chris/busted-image
+      tag: latest
