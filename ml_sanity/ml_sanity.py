@@ -1,5 +1,6 @@
 # Based on the tutorial at:
 # https://cloud.google.com/vertex-ai/docs/tutorials/tabular-bq-prediction/create-notebook
+import asyncio
 import os
 import sys
 from subprocess import check_call
@@ -9,6 +10,9 @@ import numpy as np
 import pandas as pd
 from google.cloud import aiplatform, bigquery, storage
 from google.cloud.exceptions import NotFound
+from prefect import flow, get_run_logger, task
+from prefect.artifacts import create_table_artifact
+from prefect.blocks.system import Secret
 
 PROJECT_ID = "prefect-sbx-chrisguidry"
 REGION = "us-central1"
@@ -17,6 +21,22 @@ BUCKET_NAME = "guidry-vertex-ai-tutorial"
 BUCKET_URI = f"gs://{BUCKET_NAME}"
 
 
+BQ_SOURCE = "bigquery-public-data.ml_datasets.penguins"
+
+LABEL_COLUMN = "species"
+NA_VALUES = ["NA", "."]
+
+DATASET_NAME = "sample-penguins"
+
+
+TRAINING_EPOCHS = 20
+TRAINING_BATCH_SIZE = 10
+
+
+REGISTRY = f"{REGION}-docker.pkg.dev/{PROJECT_ID}/model-training"
+
+
+@task
 def prepare_environment() -> None:
     gs_client = storage.Client(project=PROJECT_ID)
 
@@ -28,15 +48,8 @@ def prepare_environment() -> None:
     aiplatform.init(project=PROJECT_ID, location=REGION, staging_bucket=BUCKET_URI)
 
 
-BQ_SOURCE = "bigquery-public-data.ml_datasets.penguins"
-
-LABEL_COLUMN = "species"
-NA_VALUES = ["NA", "."]
-
-DATASET_NAME = "sample-penguins"
-
-
-def create_dataset() -> aiplatform.TabularDataset:
+@task
+async def create_dataset() -> aiplatform.TabularDataset:
     bq_client = bigquery.Client(project=PROJECT_ID)
 
     # Download a table
@@ -56,14 +69,14 @@ def create_dataset() -> aiplatform.TabularDataset:
     df[~df.index.isin(df_train.index)]
 
     # Map numeric values to string values
-    index_to_island = dict(enumerate(island_values))
-    index_to_species = dict(enumerate(species_values))
-    index_to_sex = dict(enumerate(sex_values))
+    index_to_island = [{"index": i, "label": v} for i, v in enumerate(island_values)]
+    index_to_species = [{"index": i, "label": v} for i, v in enumerate(species_values)]
+    index_to_sex = [{"index": i, "label": v} for i, v in enumerate(sex_values)]
 
     # View the mapped island, species, and sex data
-    print(index_to_island)
-    print(index_to_species)
-    print(index_to_sex)
+    await create_table_artifact(index_to_island, "penguins--index-to-island")
+    await create_table_artifact(index_to_species, "penguins--index-to-species")
+    await create_table_artifact(index_to_sex, "penguins--index-to-sex")
 
     # Create a BigQuery dataset
     bq_dataset_id = f"{PROJECT_ID}.penguins"
@@ -85,10 +98,22 @@ def create_dataset() -> aiplatform.TabularDataset:
     return dataset
 
 
-EPOCHS = 20
-BATCH_SIZE = 10
+@task
+def download_table(bq_table_uri: str) -> pd.DataFrame:
+    bq_client = bigquery.Client(project=PROJECT_ID)
+
+    prefix = "bq://"
+    if bq_table_uri.startswith(prefix):
+        bq_table_uri = bq_table_uri[len(prefix) :]
+
+    # Download the BigQuery table as a dataframe
+    # This requires the "BigQuery Read Session User" role on the custom training
+    # service account.
+    table = bq_client.get_table(bq_table_uri)
+    return bq_client.list_rows(table).to_dataframe()
 
 
+@flow
 def train_model() -> None:
     import tensorflow as tf
 
@@ -104,22 +129,14 @@ def train_model() -> None:
     model_dir = os.getenv("AIP_MODEL_DIR")
     assert model_dir
 
-    bq_client = bigquery.Client(project=PROJECT_ID)
-
-    def download_table(bq_table_uri: str):
-        prefix = "bq://"
-        if bq_table_uri.startswith(prefix):
-            bq_table_uri = bq_table_uri[len(prefix) :]
-
-        # Download the BigQuery table as a dataframe
-        # This requires the "BigQuery Read Session User" role on the custom training
-        # service account.
-        table = bq_client.get_table(bq_table_uri)
-        return bq_client.list_rows(table).to_dataframe()
-
     df_train = download_table(training_data_uri)
+    assert df_train is not None
+
     df_validation = download_table(validation_data_uri)
-    download_table(test_data_uri)
+    assert df_validation is not None
+
+    df_test = download_table(test_data_uri)
+    assert df_test is not None
 
     def convert_dataframe_to_dataset(
         df_train: pd.DataFrame,
@@ -184,19 +201,17 @@ def train_model() -> None:
 
     model = create_model(num_features=dataset_train._flat_shapes[0].dims[0].value)
 
-    dataset_train = dataset_train.batch(BATCH_SIZE)
-    dataset_validation = dataset_validation.batch(BATCH_SIZE)
+    dataset_train = dataset_train.batch(TRAINING_BATCH_SIZE)
+    dataset_validation = dataset_validation.batch(TRAINING_BATCH_SIZE)
 
-    model.fit(dataset_train, epochs=EPOCHS, validation_data=dataset_validation)
+    model.fit(dataset_train, epochs=TRAINING_EPOCHS, validation_data=dataset_validation)
 
     tf.saved_model.save(model, model_dir)
 
 
-REGISTRY = f"{REGION}-docker.pkg.dev/{PROJECT_ID}/model-training"
-
-
+@task
 def build_and_push_container() -> str:
-    IMAGE_URI = f"{REGISTRY}/penguins-madness:latest"
+    IMAGE_URI = f"{REGISTRY}/penguins-sanity:latest"
     check_call(
         ["gcloud", "auth", "configure-docker", f"{REGION}-docker.pkg.dev", "--quiet"]
     )
@@ -205,14 +220,43 @@ def build_and_push_container() -> str:
     return IMAGE_URI
 
 
+@task
 def create_training_job(container_uri: str) -> aiplatform.CustomContainerTrainingJob:
     job = aiplatform.CustomContainerTrainingJob(
         display_name="train-penguins",
         container_uri=container_uri,
-        command=["python3", "ml_madness.py", "train"],
+        command=["python3", "ml_sanity.py", "train"],
         model_serving_container_image_uri="us-docker.pkg.dev/vertex-ai/prediction/tf-cpu.2-12.py310:latest",
     )
     return job
+
+
+@flow
+async def submit_training() -> None:
+    prepare_environment()
+    dataset = await create_dataset()
+
+    container_uri = build_and_push_container()
+
+    j = aiplatform.CustomJob()
+    j.run()
+    job = create_training_job(container_uri)
+
+    api_key: Secret = await Secret.load("coolness-api-key")
+    api_url: Secret = await Secret.load("coolness-api-url")
+
+    model = job.run(
+        dataset=dataset,
+        model_display_name="penguins-model",
+        bigquery_destination=f"bq://{PROJECT_ID}",
+        environment_variables={
+            "PREFECT_API_URL": api_url.get(),
+            "PREFECT_API_KEY": api_key.get(),
+        },
+    )
+    assert model
+
+    get_run_logger().info("Model: %s (%s)", model.resource_name, model.uri)
 
 
 if __name__ == "__main__":
@@ -222,15 +266,4 @@ if __name__ == "__main__":
     else:
         # when invoked without parameters, we're running locally and orchestrating the
         # training and deployment
-        prepare_environment()
-        dataset = create_dataset()
-
-        container_uri = build_and_push_container()
-
-        job = create_training_job(container_uri)
-        model = job.run(
-            dataset=dataset,
-            model_display_name="penguins-model",
-            bigquery_destination=f"bq://{PROJECT_ID}",
-        )
-        print(model)
+        asyncio.run(submit_training())
