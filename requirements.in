@@ -4,6 +4,14 @@ marvin
 beautifulsoup4
 mechanicalsoup
 
+numpy
+pandas
+db-dtypes
+google-cloud-aiplatform
+google-cloud-bigquery
+google-cloud-storage
+tensorflow
+
 # development
 mypy
 pytest
