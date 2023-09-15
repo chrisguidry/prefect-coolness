@@ -1,4 +1,8 @@
 prefect>=2.11.5
+
+#prefect-gcp
+-e ~/src/github.com/PrefectHQ/prefect-gcp
+
 marvin
 
 beautifulsoup4

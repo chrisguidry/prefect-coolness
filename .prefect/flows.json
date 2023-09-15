@@ -7,5 +7,6 @@
   "map-flow": "maptastrophe.py:map_flow",
   "paramtastrophe": "paramtastrophe.py:paramtastrophe",
   "response": "automations.py:response",
-  "stimulus": "automations.py:stimulus"
+  "stimulus": "automations.py:stimulus",
+  "train-model": "ml_sanity/ml_sanity.py:train_model"
 }
