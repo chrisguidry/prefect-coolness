@@ -1,7 +1,10 @@
 prefect>=2.11.5
 
-#prefect-gcp
--e ~/src/github.com/PrefectHQ/prefect-gcp
+prefect-gcp
+#-e ~/src/github.com/PrefectHQ/prefect-gcp
+
+prefect-kubernetes
+#-e ~/src/github.com/PrefectHQ/prefect-kubernetes
 
 marvin
 
@@ -14,7 +17,7 @@ db-dtypes
 google-cloud-aiplatform
 google-cloud-bigquery
 google-cloud-storage
-tensorflow
+# tensorflow
 
 # development
 mypy

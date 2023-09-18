@@ -116,3 +116,17 @@ deployments:
       dockerfile: auto
       image_name: chris/busted-image
       tag: latest
+- name: agent-nightnight
+  version:
+  tags: []
+  description: A flow that sleeps for the specified duration.
+  entrypoint: nightnight.py:nightnight
+  parameters: {}
+  work_pool:
+    name: default-agent-pool
+    work_queue_name: default
+    job_variables: {}
+  schedule:
+  pull:
+  - prefect.projects.steps.set_working_directory:
+      directory: /home/chris/src/github.com/chrisguidry/prefect-coolness

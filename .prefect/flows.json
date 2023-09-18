@@ -5,6 +5,7 @@
   "im-in-love": "friday.py:im_in_love",
   "logtastrophe": "logtastrophe.py:logtastrophe",
   "map-flow": "maptastrophe.py:map_flow",
+  "nightnight": "nightnight.py:nightnight",
   "paramtastrophe": "paramtastrophe.py:paramtastrophe",
   "response": "automations.py:response",
   "stimulus": "automations.py:stimulus",

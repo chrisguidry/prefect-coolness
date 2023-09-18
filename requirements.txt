@@ -4,10 +4,6 @@
 #
 #    pip-compile --output-file=requirements.txt requirements.in
 #
-absl-py==1.4.0
-    # via
-    #   tensorboard
-    #   tensorflow
 aiohttp==3.8.5
     # via openai
 aiosignal==1.3.1
@@ -28,8 +24,6 @@ asgi-lifespan==2.1.0
     # via prefect
 asttokens==2.4.0
     # via stack-data
-astunparse==1.6.3
-    # via tensorflow
 async-timeout==4.0.3
     # via aiohttp
 asyncpg==0.28.0
@@ -96,33 +90,32 @@ fastapi==0.103.1
     # via
     #   marvin
     #   prefect
-flatbuffers==23.5.26
-    # via tensorflow
 frozenlist==1.4.0
     # via
     #   aiohttp
     #   aiosignal
 fsspec==2023.9.0
     # via prefect
-gast==0.4.0
-    # via tensorflow
 google-api-core[grpc]==2.11.1
     # via
+    #   google-api-python-client
     #   google-cloud-aiplatform
     #   google-cloud-bigquery
     #   google-cloud-core
     #   google-cloud-resource-manager
     #   google-cloud-storage
+google-api-python-client==2.99.0
+    # via prefect-gcp
 google-auth==2.23.0
     # via
     #   google-api-core
-    #   google-auth-oauthlib
+    #   google-api-python-client
+    #   google-auth-httplib2
     #   google-cloud-core
     #   google-cloud-storage
     #   kubernetes
-    #   tensorboard
-google-auth-oauthlib==1.0.0
-    # via tensorboard
+google-auth-httplib2==0.1.1
+    # via google-api-python-client
 google-cloud-aiplatform==1.32.0
     # via -r requirements.in
 google-cloud-bigquery==3.11.4
@@ -139,10 +132,9 @@ google-cloud-storage==2.10.0
     # via
     #   -r requirements.in
     #   google-cloud-aiplatform
+    #   prefect-gcp
 google-crc32c==1.5.0
     # via google-resumable-media
-google-pasta==0.2.0
-    # via tensorflow
 google-resumable-media==2.6.0
     # via
     #   google-cloud-bigquery
@@ -167,8 +159,6 @@ grpcio==1.58.0
     #   googleapis-common-protos
     #   grpc-google-iam-v1
     #   grpcio-status
-    #   tensorboard
-    #   tensorflow
 grpcio-status==1.58.0
     # via google-api-core
 h11==0.14.0
@@ -177,12 +167,14 @@ h11==0.14.0
     #   uvicorn
 h2==4.1.0
     # via httpx
-h5py==3.9.0
-    # via tensorflow
 hpack==4.0.0
     # via h2
 httpcore==0.18.0
     # via httpx
+httplib2==0.22.0
+    # via
+    #   google-api-python-client
+    #   google-auth-httplib2
 httpx[http2]==0.25.0
     # via
     #   marvin
@@ -215,27 +207,22 @@ jsonschema==4.19.0
     # via prefect
 jsonschema-specifications==2023.7.1
     # via jsonschema
-keras==2.13.1
-    # via tensorflow
 kubernetes==27.2.0
-    # via prefect
-libclang==16.0.6
-    # via tensorflow
+    # via
+    #   prefect
+    #   prefect-kubernetes
 lxml==4.9.3
     # via mechanicalsoup
 mako==1.2.4
     # via alembic
 markdown==3.4.4
-    # via
-    #   apprise
-    #   tensorboard
+    # via apprise
 markdown-it-py==3.0.0
     # via rich
 markupsafe==2.1.3
     # via
     #   jinja2
     #   mako
-    #   werkzeug
 marvin==1.4.2
     # via -r requirements.in
 matplotlib-inline==0.1.6
@@ -252,24 +239,18 @@ mypy==1.5.1
     # via -r requirements.in
 mypy-extensions==1.0.0
     # via mypy
-numpy==1.24.3
+numpy==1.25.2
     # via
     #   -r requirements.in
     #   db-dtypes
-    #   h5py
-    #   opt-einsum
     #   pandas
     #   pyarrow
-    #   tensorboard
-    #   tensorflow
 oauthlib==3.2.2
     # via
     #   kubernetes
     #   requests-oauthlib
 openai==0.28.0
     # via marvin
-opt-einsum==3.3.0
-    # via tensorflow
 orjson==3.9.7
     # via prefect
 packaging==23.1
@@ -280,7 +261,6 @@ packaging==23.1
     #   google-cloud-bigquery
     #   prefect
     #   pytest
-    #   tensorflow
 pandas==2.1.0
     # via
     #   -r requirements.in
@@ -297,7 +277,14 @@ pickleshare==0.7.5
     # via ipython
 pluggy==1.3.0
     # via pytest
-prefect==2.13.0
+prefect==2.13.1
+    # via
+    #   -r requirements.in
+    #   prefect-gcp
+    #   prefect-kubernetes
+prefect-gcp==0.4.6
+    # via -r requirements.in
+prefect-kubernetes==0.2.11
     # via -r requirements.in
 prompt-toolkit==3.0.39
     # via ipython
@@ -316,8 +303,6 @@ protobuf==4.24.3
     #   grpc-google-iam-v1
     #   grpcio-status
     #   proto-plus
-    #   tensorboard
-    #   tensorflow
 ptyprocess==0.7.0
     # via pexpect
 pure-eval==0.2.2
@@ -341,6 +326,8 @@ pygments==2.16.1
     # via
     #   ipython
     #   rich
+pyparsing==3.1.1
+    # via httplib2
 pytest==7.4.2
     # via -r requirements.in
 python-dateutil==2.8.2
@@ -354,7 +341,9 @@ python-dateutil==2.8.2
 python-dotenv==1.0.0
     # via pydantic
 python-slugify==8.0.1
-    # via prefect
+    # via
+    #   prefect
+    #   prefect-gcp
 pytz==2023.3.post1
     # via
     #   dateparser
@@ -388,12 +377,10 @@ requests==2.31.0
     #   mechanicalsoup
     #   openai
     #   requests-oauthlib
-    #   tensorboard
     #   tiktoken
 requests-oauthlib==1.3.1
     # via
     #   apprise
-    #   google-auth-oauthlib
     #   kubernetes
 rich==13.5.2
     # via
@@ -416,11 +403,8 @@ shapely==1.8.5.post1
 six==1.16.0
     # via
     #   asttokens
-    #   astunparse
-    #   google-pasta
     #   kubernetes
     #   python-dateutil
-    #   tensorflow
 sniffio==1.3.0
     # via
     #   anyio
@@ -437,18 +421,8 @@ stack-data==0.6.2
     # via ipython
 starlette==0.27.0
     # via fastapi
-tensorboard==2.13.0
-    # via tensorflow
-tensorboard-data-server==0.7.1
-    # via tensorboard
-tensorflow==2.13.0
-    # via -r requirements.in
-tensorflow-estimator==2.13.0
-    # via tensorflow
-tensorflow-io-gcs-filesystem==0.34.0
-    # via tensorflow
-termcolor==2.3.0
-    # via tensorflow
+tenacity==8.2.3
+    # via prefect-gcp
 text-unidecode==1.3
     # via python-slugify
 tiktoken==0.5.1
@@ -469,7 +443,7 @@ typer==0.9.0
     # via
     #   marvin
     #   prefect
-typing-extensions==4.5.0
+typing-extensions==4.7.1
     # via
     #   alembic
     #   fastapi
@@ -477,7 +451,6 @@ typing-extensions==4.5.0
     #   prefect
     #   pydantic
     #   sqlalchemy
-    #   tensorflow
     #   typer
     #   uvicorn
 tzdata==2023.3
@@ -486,6 +459,8 @@ tzdata==2023.3
     #   pandas
 tzlocal==5.0.1
     # via dateparser
+uritemplate==4.1.1
+    # via google-api-python-client
 urllib3==1.26.16
     # via
     #   docker
@@ -504,14 +479,6 @@ websocket-client==1.6.3
     #   kubernetes
 websockets==11.0.3
     # via prefect
-werkzeug==2.3.7
-    # via tensorboard
-wheel==0.41.2
-    # via
-    #   astunparse
-    #   tensorboard
-wrapt==1.15.0
-    # via tensorflow
 yarl==1.9.2
     # via aiohttp
 

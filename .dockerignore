@@ -1,0 +1,9 @@
+Dockerfile
+.envrc
+.python-version
+.git
+.gitignore
+.vscode
+.mypy_cache
+.bookkeeping
+__pycache__
