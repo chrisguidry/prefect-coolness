@@ -103,6 +103,11 @@ parameter_openapi_schema:
       position: 0
       type: number
       format: time-delta
+    silent:
+      title: silent
+      default: false
+      position: 1
+      type: boolean
   required:
   - duration
   definitions: null
