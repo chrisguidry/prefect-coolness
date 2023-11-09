@@ -3,7 +3,6 @@ import sys
 import time
 
 from prefect import flow, task
-from prefect.deployments import run_deployment
 
 
 @task
@@ -41,10 +40,10 @@ def randos(count: int) -> int:
     answer = sum_the_pieces(pieces)
     assert answer is not None
 
-    run_deployment(
-        name="nightnight/agent-nightnight",
-        parameters={"duration": abs(answer) % 10 + 1},
-    )
+    # run_deployment(
+    #     name="nightnight/agent-nightnight",
+    #     parameters={"duration": abs(answer) % 10 + 1},
+    # )
 
     return answer
 

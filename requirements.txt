@@ -49,9 +49,9 @@ certifi==2023.7.22
     #   httpx
     #   kubernetes
     #   requests
-cffi==1.15.1
+cffi==1.16.0
     # via cryptography
-charset-normalizer==3.2.0
+charset-normalizer==3.3.0
     # via
     #   aiohttp
     #   requests
@@ -69,7 +69,7 @@ coolname==2.2.0
     # via prefect
 croniter==1.4.1
     # via prefect
-cryptography==41.0.3
+cryptography==41.0.4
     # via prefect
 dateparser==1.1.8
     # via prefect
@@ -84,19 +84,17 @@ exceptiongroup==1.1.3
     #   anyio
     #   ipython
     #   pytest
-executing==1.2.0
+executing==2.0.0
     # via stack-data
-fastapi==0.103.1
-    # via
-    #   marvin
-    #   prefect
+fastapi==0.103.2
+    # via marvin
 frozenlist==1.4.0
     # via
     #   aiohttp
     #   aiosignal
-fsspec==2023.9.0
+fsspec==2023.9.2
     # via prefect
-google-api-core[grpc]==2.11.1
+google-api-core[grpc]==2.12.0
     # via
     #   google-api-python-client
     #   google-cloud-aiplatform
@@ -104,9 +102,9 @@ google-api-core[grpc]==2.11.1
     #   google-cloud-core
     #   google-cloud-resource-manager
     #   google-cloud-storage
-google-api-python-client==2.99.0
+google-api-python-client==2.102.0
     # via prefect-gcp
-google-auth==2.23.0
+google-auth==2.23.2
     # via
     #   google-api-core
     #   google-api-python-client
@@ -116,9 +114,9 @@ google-auth==2.23.0
     #   kubernetes
 google-auth-httplib2==0.1.1
     # via google-api-python-client
-google-cloud-aiplatform==1.32.0
+google-cloud-aiplatform==1.34.0
     # via -r requirements.in
-google-cloud-bigquery==3.11.4
+google-cloud-bigquery==3.12.0
     # via
     #   -r requirements.in
     #   google-cloud-aiplatform
@@ -126,9 +124,9 @@ google-cloud-core==2.3.3
     # via
     #   google-cloud-bigquery
     #   google-cloud-storage
-google-cloud-resource-manager==1.10.3
+google-cloud-resource-manager==1.10.4
     # via google-cloud-aiplatform
-google-cloud-storage==2.10.0
+google-cloud-storage==2.11.0
     # via
     #   -r requirements.in
     #   google-cloud-aiplatform
@@ -146,20 +144,20 @@ googleapis-common-protos[grpc]==1.60.0
     #   grpcio-status
 graphviz==0.20.1
     # via prefect
-greenlet==2.0.2
+greenlet==3.0.0
     # via sqlalchemy
-griffe==0.36.2
+griffe==0.36.4
     # via prefect
 grpc-google-iam-v1==0.12.6
     # via google-cloud-resource-manager
-grpcio==1.58.0
+grpcio==1.59.0
     # via
     #   google-api-core
     #   google-cloud-bigquery
     #   googleapis-common-protos
     #   grpc-google-iam-v1
     #   grpcio-status
-grpcio-status==1.58.0
+grpcio-status==1.59.0
     # via google-api-core
 h11==0.14.0
     # via
@@ -189,9 +187,9 @@ idna==3.4
     #   yarl
 iniconfig==2.0.0
     # via pytest
-ipython==8.15.0
+ipython==8.16.1
     # via -r requirements.in
-jedi==0.19.0
+jedi==0.19.1
     # via ipython
 jinja2==3.1.2
     # via
@@ -203,11 +201,11 @@ jsonpatch==1.33
     #   prefect
 jsonpointer==2.4
     # via jsonpatch
-jsonschema==4.19.0
+jsonschema==4.19.1
     # via prefect
 jsonschema-specifications==2023.7.1
     # via jsonschema
-kubernetes==27.2.0
+kubernetes==28.1.0
     # via
     #   prefect
     #   prefect-kubernetes
@@ -223,7 +221,7 @@ markupsafe==2.1.3
     # via
     #   jinja2
     #   mako
-marvin==1.4.2
+marvin==1.5.1
     # via -r requirements.in
 matplotlib-inline==0.1.6
     # via ipython
@@ -239,7 +237,7 @@ mypy==1.5.1
     # via -r requirements.in
 mypy-extensions==1.0.0
     # via mypy
-numpy==1.25.2
+numpy==1.26.0
     # via
     #   -r requirements.in
     #   db-dtypes
@@ -249,11 +247,11 @@ oauthlib==3.2.2
     # via
     #   kubernetes
     #   requests-oauthlib
-openai==0.28.0
+openai==0.28.1
     # via marvin
 orjson==3.9.7
     # via prefect
-packaging==23.1
+packaging==23.2
     # via
     #   db-dtypes
     #   docker
@@ -261,7 +259,7 @@ packaging==23.1
     #   google-cloud-bigquery
     #   prefect
     #   pytest
-pandas==2.1.0
+pandas==2.1.1
     # via
     #   -r requirements.in
     #   db-dtypes
@@ -277,14 +275,14 @@ pickleshare==0.7.5
     # via ipython
 pluggy==1.3.0
     # via pytest
-prefect==2.13.1
+prefect==2.13.5
     # via
     #   -r requirements.in
     #   prefect-gcp
     #   prefect-kubernetes
-prefect-gcp==0.4.6
+prefect-gcp==0.5.0
     # via -r requirements.in
-prefect-kubernetes==0.2.11
+prefect-kubernetes==0.3.0
     # via -r requirements.in
 prompt-toolkit==3.0.39
     # via ipython
@@ -293,7 +291,7 @@ proto-plus==1.22.3
     #   google-cloud-aiplatform
     #   google-cloud-bigquery
     #   google-cloud-resource-manager
-protobuf==4.24.3
+protobuf==4.24.4
     # via
     #   google-api-core
     #   google-cloud-aiplatform
@@ -317,7 +315,7 @@ pyasn1-modules==0.3.0
     # via google-auth
 pycparser==2.21
     # via cffi
-pydantic[dotenv]==1.10.12
+pydantic[dotenv]==1.10.13
     # via
     #   fastapi
     #   marvin
@@ -362,7 +360,7 @@ referencing==0.30.2
     # via
     #   jsonschema
     #   jsonschema-specifications
-regex==2023.8.8
+regex==2023.10.3
     # via
     #   dateparser
     #   tiktoken
@@ -382,21 +380,21 @@ requests-oauthlib==1.3.1
     # via
     #   apprise
     #   kubernetes
-rich==13.5.2
+rich==13.6.0
     # via
     #   marvin
     #   prefect
-rpds-py==0.10.3
+rpds-py==0.10.4
     # via
     #   jsonschema
     #   referencing
 rsa==4.9
     # via google-auth
-ruamel-yaml==0.17.32
+ruamel-yaml==0.17.35
     # via prefect
-ruamel-yaml-clib==0.2.7
+ruamel-yaml-clib==0.2.8
     # via ruamel-yaml
-ruff==0.0.289
+ruff==0.0.292
     # via -r requirements.in
 shapely==1.8.5.post1
     # via google-cloud-aiplatform
@@ -413,14 +411,16 @@ sniffio==1.3.0
     #   httpx
 soupsieve==2.5
     # via beautifulsoup4
-sqlalchemy[asyncio]==2.0.20
+sqlalchemy[asyncio]==2.0.21
     # via
     #   alembic
     #   prefect
-stack-data==0.6.2
+stack-data==0.6.3
     # via ipython
 starlette==0.27.0
-    # via fastapi
+    # via
+    #   fastapi
+    #   prefect
 tenacity==8.2.3
     # via prefect-gcp
 text-unidecode==1.3
@@ -435,7 +435,7 @@ tomli==2.0.1
     #   pytest
 tqdm==4.66.1
     # via openai
-traitlets==5.10.0
+traitlets==5.11.2
     # via
     #   ipython
     #   matplotlib-inline
@@ -443,7 +443,7 @@ typer==0.9.0
     # via
     #   marvin
     #   prefect
-typing-extensions==4.7.1
+typing-extensions==4.8.0
     # via
     #   alembic
     #   fastapi
@@ -457,21 +457,20 @@ tzdata==2023.3
     # via
     #   marvin
     #   pandas
-tzlocal==5.0.1
+tzlocal==5.1
     # via dateparser
 uritemplate==4.1.1
     # via google-api-python-client
-urllib3==1.26.16
+urllib3==1.26.17
     # via
     #   docker
-    #   google-auth
     #   kubernetes
     #   requests
 uvicorn==0.23.2
     # via
     #   marvin
     #   prefect
-wcwidth==0.2.6
+wcwidth==0.2.8
     # via prompt-toolkit
 websocket-client==1.6.3
     # via

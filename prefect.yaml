@@ -154,3 +154,17 @@ deployments:
       requires: prefect-docker>=0.3.1
       image_name: '{{ build-image.image_name }}'
       tag: '{{ build-image.tag }}'
+- name: default
+  version:
+  tags: []
+  description:
+  entrypoint: pydantiflow.py:pydantiflow
+  parameters: {}
+  work_pool:
+    name: default
+    work_queue_name:
+    job_variables: {}
+  schedule:
+  pull:
+  - prefect.projects.steps.set_working_directory:
+      directory: /home/chris/src/github.com/chrisguidry/prefect-coolness
