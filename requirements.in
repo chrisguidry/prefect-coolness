@@ -1,4 +1,4 @@
-prefect>=2.13.5
+prefect>=2.14.10
 
 prefect-gcp
 # #-e ~/src/github.com/PrefectHQ/prefect-gcp

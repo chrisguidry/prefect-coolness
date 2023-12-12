@@ -1,11 +1,8 @@
-from uuid import UUID
-
 import pendulum
 import rich.console
 from prefect.cli import root
 from prefect.cli._types import PrefectTyper
 from prefect.events.clients import PrefectCloudEventSubscriber
-from prefect.events.filters import EventFilter, EventNameFilter
 
 
 def setup_console(app: PrefectTyper) -> rich.console.Console:
@@ -28,20 +25,9 @@ console = setup_console(app)
 
 
 @app.command()
-async def subscribe(
-    account: UUID,
-    workspace: UUID,
-    token: str,
-):
+async def subscribe():
     """Subscribes to the event stream of a workspace, printing each event"""
-
-    api_url = (
-        f"https://api.stg.prefect.dev/api/accounts/{account}/workspaces/{workspace}"
-    )
-
-    filter = EventFilter(event=EventNameFilter(prefix=["prefect.log.write"]))
-
-    async with PrefectCloudEventSubscriber(api_url, token, filter) as subscriber:
+    async with PrefectCloudEventSubscriber() as subscriber:
         async for event in subscriber:
             now = pendulum.now("UTC")
             console.print(
