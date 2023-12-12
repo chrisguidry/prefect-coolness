@@ -24,3 +24,4 @@ mypy
 pytest
 ipython
 ruff
+memray
