@@ -1,13 +1,14 @@
 import asyncio
+import sys
 from uuid import uuid4
 
 from prefect.events.clients import PrefectCloudEventsClient
 from prefect.events.schemas import Event
 
 
-async def emit_three_events():
-    async with PrefectCloudEventsClient() as client:
-        for _ in range(3):
+async def emit_events(n: int = sys.maxsize):
+    async with PrefectCloudEventsClient(checkpoint_every=1) as client:
+        for _ in range(n):
             event = Event(
                 event="external.resource.pinged",
                 resource={"prefect.resource.id": "my.external.resource"},
@@ -15,7 +16,9 @@ async def emit_three_events():
             )
             await client.emit(event)
             print(event.id)
+            await asyncio.sleep(0.1)
 
 
 if __name__ == "__main__":
-    asyncio.run(emit_three_events())
+    n = int(sys.argv[1]) if len(sys.argv) > 1 else sys.maxsize
+    asyncio.run(emit_events(n))

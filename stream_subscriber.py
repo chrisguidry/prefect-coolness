@@ -32,7 +32,8 @@ async def subscribe():
             now = pendulum.now("UTC")
             console.print(
                 str(event.id).partition("-")[0],
-                f"occurred={(event.occurred - now).total_seconds():>7,.2f}",
+                f"{event.occurred.isoformat()}",
+                f" ({(event.occurred - now).total_seconds():>6,.2f})",
                 f"\\[[bold green]{event.event}[/]]",
                 event.resource.id,
             )
