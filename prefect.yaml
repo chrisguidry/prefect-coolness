@@ -168,3 +168,25 @@ deployments:
   pull:
   - prefect.projects.steps.set_working_directory:
       directory: /home/chris/src/github.com/chrisguidry/prefect-coolness
+- name: default
+  version:
+  tags: []
+  description:
+  entrypoint: parametrized.py:add
+  parameters: {}
+  work_pool:
+    name: default
+    work_queue_name:
+    job_variables: {}
+  schedule:
+- name: default
+  version:
+  tags: []
+  description:
+  entrypoint: parametrized.py:objecty
+  parameters: {}
+  work_pool:
+    name: default
+    work_queue_name:
+    job_variables: {}
+  schedule:

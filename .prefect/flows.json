@@ -1,4 +1,5 @@
 {
+  "add": "parametrized.py:add",
   "chatty": "chatty.py:chatty",
   "faily": "faily.py:faily",
   "hello": "resultastrope.py:hello",
@@ -6,6 +7,7 @@
   "logtastrophe": "logtastrophe.py:logtastrophe",
   "map-flow": "maptastrophe.py:map_flow",
   "nightnight": "nightnight.py:nightnight",
+  "objecty": "parametrized.py:objecty",
   "paramtastrophe": "paramtastrophe.py:paramtastrophe",
   "pydantiflow": "pydantiflow.py:pydantiflow",
   "response": "automations.py:response",
