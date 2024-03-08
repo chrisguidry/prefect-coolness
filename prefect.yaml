@@ -13,7 +13,7 @@ push:
 # pull section allows you to provide instructions for cloning this project in remote locations
 pull:
 - prefect.projects.steps.set_working_directory:
-    directory: /opt/prefect/prefect-coolness
+    directory: /home/chris/src/chrisguidry/prefect-coolness
 
 deployments:
 - name: im-triggered
@@ -179,6 +179,7 @@ deployments:
     work_queue_name:
     job_variables: {}
   schedule:
+  is_schedule_active: true
 - name: default
   version:
   tags: []
