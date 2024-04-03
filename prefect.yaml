@@ -18,9 +18,19 @@ pull:
 deployments:
 - name: im-triggered
   entrypoint: logtastrophe.py:logtastrophe
-  schedule:
-  automations:
-  - expect: [any.old.thing]
+  triggers:
+  - expect:
+    - any.old.thing
+    name: im-triggered__automation_1
+  version:
+  tags: []
+  description:
+  parameters: {}
+  work_pool:
+    name: default
+    work_queue_name:
+    job_variables: {}
+  schedules: []
 - name: im_in_love
   version:
   tags: []
