@@ -1,4 +1,4 @@
-prefect>=2.16.3
+prefect>=2.17.1
 
 prefect-gcp
 # #-e ~/src/github.com/PrefectHQ/prefect-gcp
@@ -10,6 +10,8 @@ marvin
 
 beautifulsoup4
 mechanicalsoup
+
+watchdog
 
 numpy
 pandas
