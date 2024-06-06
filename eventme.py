@@ -2,8 +2,8 @@ import asyncio
 import sys
 from uuid import uuid4
 
+from prefect.events import Event
 from prefect.events.clients import PrefectCloudEventsClient
-from prefect.events.schemas import Event
 
 
 async def emit_events(n: int = sys.maxsize):

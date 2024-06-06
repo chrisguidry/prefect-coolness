@@ -2,7 +2,7 @@ import pendulum
 import rich.console
 from prefect.cli import root
 from prefect.cli._types import PrefectTyper
-from prefect.events.clients import PrefectCloudEventSubscriber
+from prefect.events.clients import get_events_subscriber
 
 
 def setup_console(app: PrefectTyper) -> rich.console.Console:
@@ -27,7 +27,7 @@ console = setup_console(app)
 @app.command()
 async def subscribe():
     """Subscribes to the event stream of a workspace, printing each event"""
-    async with PrefectCloudEventSubscriber() as subscriber:
+    async with get_events_subscriber() as subscriber:
         async for event in subscriber:
             now = pendulum.now("UTC")
             console.print(

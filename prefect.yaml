@@ -1,202 +1,32 @@
-# File for configuring project / deployment build, push and pull steps
+# Welcome to your prefect.yaml file! You can use this file for storing and managing
+# configuration for deploying your flows. We recommend committing this file to source
+# control along with your flow code.
 
 # Generic metadata about this project
 name: prefect-coolness
-prefect-version: 2.10.13
+prefect-version: 2.19.1
 
 # build section allows you to manage and build docker images
-build:
+build: null
 
 # push section allows you to manage if and how this project is uploaded to remote locations
-push:
+push: null
 
 # pull section allows you to provide instructions for cloning this project in remote locations
 pull:
-- prefect.projects.steps.set_working_directory:
+- prefect.deployments.steps.set_working_directory:
     directory: /home/chris/src/github.com/chrisguidry/prefect-coolness
 
+# the deployments section allows you to provide configuration for deploying flows
 deployments:
-- name: im-triggered
-  entrypoint: logtastrophe.py:logtastrophe
-  triggers:
-  - expect:
-    - any.old.thing
-    name: im-triggered__automation_1
-  version:
+- name: add
+  version: null
   tags: []
-  description:
+  description: null
+  entrypoint: ./parametrized.py:add
   parameters: {}
   work_pool:
     name: default
-    work_queue_name:
+    work_queue_name: null
     job_variables: {}
   schedules: []
-- name: im_in_love
-  version:
-  tags: []
-  description:
-  entrypoint: friday.py:im_in_love
-  parameters: {}
-  work_pool:
-    name: The Coolest
-    work_queue_name:
-    job_variables: {}
-  schedule:
-    rrule: RRULE:FREQ=DAILY;INTERVAL=1
-    timezone: UTC
-- name: chatty
-  version:
-  tags: []
-  description:
-  entrypoint: chatty.py:chatty
-  parameters: {}
-  work_pool:
-    name: The Coolest
-    work_queue_name:
-    job_variables: {}
-  schedule:
-- name: k8s-me
-  version:
-  tags: []
-  description:
-  entrypoint: logtastrophe.py:logtastrophe
-  parameters: {}
-  work_pool:
-    name: minikube
-    work_queue_name:
-    job_variables:
-      image: '{{ build-image.image }}'
-  schedule:
-  build:
-  - prefect_docker.deployments.steps.build_docker_image:
-      requires: prefect-docker>=0.3.1
-      id: build-image
-      dockerfile: auto
-      image_name: localhost:5000/chris/k8s-me
-      tag: latest
-  push:
-  - prefect_docker.deployments.steps.push_docker_image:
-      requires: prefect-docker>=0.3.1
-      image_name: '{{ build-image.image_name }}'
-      tag: '{{ build-image.tag }}'
-      credentials: '{{ prefect_docker.docker-registry-credentials.docker_registry_creds_name
-        }}'
-- name: k8s-me-outside
-  version:
-  tags: []
-  description:
-  entrypoint: logtastrophe.py:logtastrophe
-  parameters: {}
-  work_pool:
-    name: minikube-outside
-    work_queue_name:
-    job_variables:
-      image: '{{ build-image.image }}'
-  schedule:
-  build:
-  - prefect_docker.deployments.steps.build_docker_image:
-      requires: prefect-docker>=0.3.1
-      id: build-image
-      dockerfile: auto
-      image_name: localhost:5000/chris/k8s-me-outside
-      tag: latest
-  push:
-  - prefect_docker.deployments.steps.push_docker_image:
-      requires: prefect-docker>=0.3.1
-      image_name: '{{ build-image.image_name }}'
-      tag: '{{ build-image.tag }}'
-      credentials: '{{ prefect_docker.docker-registry-credentials.docker_registry_creds_name
-        }}'
-- name: busted-image
-  version:
-  tags: []
-  description:
-  entrypoint: logtastrophe.py:logtastrophe
-  parameters: {}
-  work_pool:
-    name: minikube
-    work_queue_name:
-    job_variables:
-      image: '{{ build-image.image }}'
-  schedule:
-  build:
-  - prefect_docker.deployments.steps.build_docker_image:
-      requires: prefect-docker>=0.3.1
-      id: build-image
-      dockerfile: auto
-      image_name: chris/busted-image
-      tag: latest
-- name: agent-nightnight
-  version:
-  tags: []
-  description: A flow that sleeps for the specified duration.
-  entrypoint: nightnight.py:nightnight
-  parameters: {}
-  work_pool:
-    name: default-agent-pool
-    work_queue_name: default
-    job_variables: {}
-  schedule:
-  pull:
-  - prefect.projects.steps.set_working_directory:
-      directory: /home/chris/src/github.com/chrisguidry/prefect-coolness
-- name: cloudrunme
-  version:
-  tags: []
-  description:
-  entrypoint: logtastrophe.py:logtastrophe
-  parameters: {}
-  work_pool:
-    name: cloudrun-sandbox
-    work_queue_name:
-    job_variables:
-      image: '{{ build-image.image }}'
-  schedule:
-  build:
-  - prefect_docker.deployments.steps.build_docker_image:
-      requires: prefect-docker>=0.3.1
-      id: build-image
-      dockerfile: Dockerfile
-      image_name: us-central1-docker.pkg.dev/prefect-sbx-chrisguidry/coolness/coolness
-      tag: latest
-  push:
-  - prefect_docker.deployments.steps.push_docker_image:
-      requires: prefect-docker>=0.3.1
-      image_name: '{{ build-image.image_name }}'
-      tag: '{{ build-image.tag }}'
-- name: default
-  version:
-  tags: []
-  description:
-  entrypoint: pydantiflow.py:pydantiflow
-  parameters: {}
-  work_pool:
-    name: default
-    work_queue_name:
-    job_variables: {}
-  schedule:
-  pull:
-  - prefect.projects.steps.set_working_directory:
-      directory: /home/chris/src/github.com/chrisguidry/prefect-coolness
-- name: default
-  version:
-  tags: []
-  description:
-  entrypoint: parametrized.py:add
-  parameters: {}
-  work_pool:
-    name: default
-    work_queue_name:
-    job_variables: {}
-  schedules: []
-- name: default
-  version:
-  tags: []
-  description:
-  entrypoint: parametrized.py:objecty
-  parameters: {}
-  work_pool:
-    name: default
-    work_queue_name:
-    job_variables: {}
-  schedule:

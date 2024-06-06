@@ -1,9 +1,9 @@
-prefect>=2.17.1
+prefect>=3rc1
 
-prefect-gcp
+#prefect-gcp
 # #-e ~/src/github.com/PrefectHQ/prefect-gcp
 
-prefect-kubernetes
+#prefect-kubernetes
 # #-e ~/src/github.com/PrefectHQ/prefect-kubernetes
 
 marvin
@@ -12,14 +12,6 @@ beautifulsoup4
 mechanicalsoup
 
 watchdog
-
-numpy
-pandas
-db-dtypes
-google-cloud-aiplatform
-google-cloud-bigquery
-google-cloud-storage
-# tensorflow
 
 # development
 mypy

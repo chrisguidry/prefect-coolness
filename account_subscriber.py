@@ -3,6 +3,7 @@ import rich.console
 from prefect.cli import root
 from prefect.cli._types import PrefectTyper
 from prefect.events.clients import PrefectCloudAccountEventSubscriber
+from prefect.events.filters import EventFilter
 
 
 def setup_console(app: PrefectTyper) -> rich.console.Console:
@@ -26,8 +27,10 @@ console = setup_console(app)
 
 @app.command()
 async def subscribe():
-    """Subscribes to the event stream of a workspace, printing each event"""
-    async with PrefectCloudAccountEventSubscriber() as subscriber:
+    """Subscribes to the event stream of an account, printing each event"""
+    filter = EventFilter(related={"role": ["actor"]})
+    print(filter)
+    async with PrefectCloudAccountEventSubscriber(filter=filter) as subscriber:
         async for event in subscriber:
             now = pendulum.now("UTC")
             console.print(

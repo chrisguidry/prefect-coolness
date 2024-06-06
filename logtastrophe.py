@@ -1,20 +1,21 @@
-import asyncio
 import random
 
 from prefect import flow, get_run_logger, task
 
 
 @flow
-async def logtastrophe():
+def logtastrophe():
     logger = get_run_logger()
     logger.info("Y'all ready for this?")
     logger.info("Stop me if you've heard it...")
-    await bottles.map(range(99, 1, -1))
+    futures = bottles.map(range(99, 1, -1))
+    for future in futures:
+        future.wait()
     logger.info("I guess you were")
 
 
 @task
-async def bottles(n: int):
+def bottles(n: int):
     logger = get_run_logger()
     logger.info(f"{n} bottles of beer on the wall")
     logger.info(f"{n} bottles of beer!")
@@ -24,4 +25,4 @@ async def bottles(n: int):
 
 
 if __name__ == "__main__":
-    asyncio.run(logtastrophe())
+    logtastrophe()
