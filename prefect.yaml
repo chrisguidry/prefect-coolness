@@ -7,10 +7,10 @@ name: prefect-coolness
 prefect-version: 2.19.1
 
 # build section allows you to manage and build docker images
-build: null
+build:
 
 # push section allows you to manage if and how this project is uploaded to remote locations
-push: null
+push:
 
 # pull section allows you to provide instructions for cloning this project in remote locations
 pull:
@@ -20,13 +20,25 @@ pull:
 # the deployments section allows you to provide configuration for deploying flows
 deployments:
 - name: add
-  version: null
+  version:
   tags: []
-  description: null
+  description:
   entrypoint: ./parametrized.py:add
   parameters: {}
   work_pool:
     name: default
-    work_queue_name: null
+    work_queue_name:
     job_variables: {}
   schedules: []
+- name: add
+  version:
+  tags: []
+  description:
+  entrypoint: ./pydantiflow.py:pydantiflow
+  parameters: {}
+  work_pool:
+    name: default
+    work_queue_name:
+    job_variables: {}
+  schedules: []
+  enforce_parameter_schema: true

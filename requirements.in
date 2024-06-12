@@ -1,4 +1,4 @@
-prefect>=3rc1
+prefect>=3rc2
 
 #prefect-gcp
 # #-e ~/src/github.com/PrefectHQ/prefect-gcp
