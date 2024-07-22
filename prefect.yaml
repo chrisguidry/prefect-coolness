@@ -14,45 +14,57 @@ push:
 
 # pull section allows you to provide instructions for cloning this project in remote locations
 pull:
-  - prefect.deployments.steps.git_clone:
-      repository: https://github.com/chrisguidry/prefect-coolness.git
-      branch: main
+- prefect.deployments.steps.git_clone:
+    repository: https://github.com/chrisguidry/prefect-coolness.git
+    branch: main
 
 # the deployments section allows you to provide configuration for deploying flows
 deployments:
-  - name: local
-    version:
-    tags: []
-    description:
-    entrypoint: worker-demo/where_am_i.py:where_am_i
-    parameters: {}
-    work_pool:
-      name: coolness-at-home
-      work_queue_name:
-      job_variables: {}
-    enforce_parameter_schema: true
-    schedules: []
-  - name: on-gcp
-    version:
-    tags: []
-    description:
-    entrypoint: worker-demo/where_am_i.py:where_am_i
-    parameters: {}
-    work_pool:
-      name: coolness-on-gcp
-      work_queue_name:
-      job_variables: {}
-    enforce_parameter_schema: true
-    schedules: []
-  - name: on-prefect
-    version:
-    tags: []
-    description:
-    entrypoint: worker-demo/where_am_i.py:where_am_i
-    parameters: {}
-    work_pool:
-      name: coolness-on-prefect
-      work_queue_name:
-      job_variables: {}
-    enforce_parameter_schema: true
-    schedules: []
+- name: local
+  version:
+  tags: []
+  description:
+  entrypoint: worker-demo/where_am_i.py:where_am_i
+  parameters: {}
+  work_pool:
+    name: coolness-at-home
+    work_queue_name:
+    job_variables: {}
+  enforce_parameter_schema: true
+  schedules: []
+- name: on-gcp
+  version:
+  tags: []
+  description:
+  entrypoint: worker-demo/where_am_i.py:where_am_i
+  parameters: {}
+  work_pool:
+    name: coolness-on-gcp
+    work_queue_name:
+    job_variables: {}
+  enforce_parameter_schema: true
+  schedules: []
+- name: on-prefect
+  version:
+  tags: []
+  description:
+  entrypoint: worker-demo/where_am_i.py:where_am_i
+  parameters: {}
+  work_pool:
+    name: coolness-on-prefect
+    work_queue_name:
+    job_variables: {}
+  enforce_parameter_schema: true
+  schedules: []
+- name: on-minikube
+  version:
+  tags: []
+  description:
+  entrypoint: worker-demo/where_am_i.py:where_am_i
+  parameters: {}
+  work_pool:
+    name: coolness-on-minikube
+    work_queue_name:
+    job_variables: {}
+  enforce_parameter_schema: true
+  schedules: []
