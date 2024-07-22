@@ -1,24 +1,23 @@
 .DEFAULT_GOAL := install
 
-.bookkeeping/development.txt: .bookkeeping/pip-tools requirements.txt
+.bookkeeping/development.txt: .bookkeeping/uv requirements.txt
 	mkdir -p .bookkeeping
 	cat requirements.txt > .bookkeeping/development.txt.next
 
-	pip install -r .bookkeeping/development.txt.next
-	pip-sync .bookkeeping/development.txt.next
+	uv pip sync .bookkeeping/development.txt.next
 
 	mv .bookkeeping/development.txt.next .bookkeeping/development.txt
 
-.bookkeeping/pip-tools:
+.bookkeeping/uv:
 	mkdir -p .bookkeeping
-	touch .bookkeeping/pip-tools.next
+	touch .bookkeeping/uv.next
 
-	pip install -U pip pip-tools
+	pip install -U pip uv
 
-	mv .bookkeeping/pip-tools.next .bookkeeping/pip-tools
+	mv .bookkeeping/uv.next .bookkeeping/uv
 
-%.txt: %.in .bookkeeping/pip-tools
-	pip-compile --upgrade --output-file $@ $<
+%.txt: %.in .bookkeeping/uv
+	uv pip compile --upgrade --output-file $@ $<
 
 .PHONY: install
 install: .bookkeeping/development.txt
