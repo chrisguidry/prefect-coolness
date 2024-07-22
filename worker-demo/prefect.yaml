@@ -1,0 +1,34 @@
+# Welcome to your prefect.yaml file! You can use this file for storing and managing
+# configuration for deploying your flows. We recommend committing this file to source
+# control along with your flow code.
+
+# Generic metadata about this project
+name: worker-demo
+prefect-version: 3.0.0rc11
+
+# build section allows you to manage and build docker images
+build: null
+
+# push section allows you to manage if and how this project is uploaded to remote locations
+push: null
+
+# pull section allows you to provide instructions for cloning this project in remote locations
+pull:
+- prefect.deployments.steps.git_clone:
+    repository: git@github.com:chrisguidry/prefect-coolness.git
+    branch: main
+
+# the deployments section allows you to provide configuration for deploying flows
+deployments:
+- name: local
+  version: null
+  tags: []
+  description: null
+  entrypoint: where_am_i.py:where_am_i
+  parameters: {}
+  work_pool:
+    name: coolness-at-home
+    work_queue_name: null
+    job_variables: {}
+  enforce_parameter_schema: true
+  schedules: []
