@@ -68,3 +68,16 @@ deployments:
     job_variables: {}
   enforce_parameter_schema: true
   schedules: []
+- name: '[Say ✨ my ✨ name]'
+  version:
+  tags: []
+  concurrency_limit:
+  description:
+  entrypoint: named.py:say_hello
+  parameters: {}
+  work_pool:
+    name: default
+    work_queue_name:
+    job_variables: {}
+  enforce_parameter_schema: true
+  schedules: []

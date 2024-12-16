@@ -7,4 +7,4 @@ def slay(who: str):
 
 
 if __name__ == "__main__":
-    slay.serve(name="serving")
+    slay.serve(name="serving", tags=["killing", "it"])

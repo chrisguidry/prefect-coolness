@@ -3,6 +3,7 @@ import rich.console
 from prefect.cli import root
 from prefect.cli._types import PrefectTyper
 from prefect.events.clients import get_events_subscriber
+from prefect.utilities.services import start_client_metrics_server
 
 
 def setup_console(app: PrefectTyper) -> rich.console.Console:
@@ -40,4 +41,5 @@ async def subscribe():
 
 
 if __name__ == "__main__":
+    start_client_metrics_server()
     app()

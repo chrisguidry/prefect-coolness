@@ -4,6 +4,7 @@ from uuid import uuid4
 
 from prefect.events import Event, Resource
 from prefect.events.clients import get_events_client
+from prefect.utilities.services import start_client_metrics_server
 
 
 async def emit_events(n: int = sys.maxsize):
@@ -20,5 +21,6 @@ async def emit_events(n: int = sys.maxsize):
 
 
 if __name__ == "__main__":
+    start_client_metrics_server()
     n = int(sys.argv[1]) if len(sys.argv) > 1 else sys.maxsize
     asyncio.run(emit_events(n))
