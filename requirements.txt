@@ -19,7 +19,9 @@ asgi-lifespan==2.1.0
 asttokens==3.0.0
     # via stack-data
 async-timeout==5.0.1
-    # via asyncpg
+    # via
+    #   asyncpg
+    #   python-socks
 asyncpg==0.30.0
     # via prefect
 attrs==24.3.0
@@ -65,7 +67,11 @@ dateparser==1.2.0
 decorator==5.1.1
     # via ipython
 deprecated==1.2.15
-    # via opentelemetry-api
+    # via
+    #   opentelemetry-api
+    #   opentelemetry-exporter-otlp-proto-grpc
+    #   opentelemetry-exporter-otlp-proto-http
+    #   opentelemetry-semantic-conventions
 distro==1.9.0
     # via openai
 docker==7.1.0
@@ -84,12 +90,18 @@ fastapi==0.115.6
     #   prefect
 fsspec==2024.10.0
     # via prefect
+googleapis-common-protos==1.66.0
+    # via
+    #   opentelemetry-exporter-otlp-proto-grpc
+    #   opentelemetry-exporter-otlp-proto-http
 graphviz==0.20.3
     # via prefect
 greenlet==3.1.1
     # via sqlalchemy
 griffe==1.5.1
     # via prefect
+grpcio==1.68.1
+    # via opentelemetry-exporter-otlp-proto-grpc
 h11==0.14.0
     # via
     #   httpcore
@@ -184,11 +196,53 @@ oauthlib==3.2.2
 openai==1.57.4
     # via marvin
 opentelemetry-api==1.29.0
+    # via
+    #   opentelemetry-distro
+    #   opentelemetry-exporter-otlp-proto-grpc
+    #   opentelemetry-exporter-otlp-proto-http
+    #   opentelemetry-instrumentation
+    #   opentelemetry-instrumentation-logging
+    #   opentelemetry-sdk
+    #   opentelemetry-semantic-conventions
+    #   prefect
+opentelemetry-distro==0.50b0
     # via prefect
+opentelemetry-exporter-otlp==1.29.0
+    # via prefect
+opentelemetry-exporter-otlp-proto-common==1.29.0
+    # via
+    #   opentelemetry-exporter-otlp-proto-grpc
+    #   opentelemetry-exporter-otlp-proto-http
+opentelemetry-exporter-otlp-proto-grpc==1.29.0
+    # via opentelemetry-exporter-otlp
+opentelemetry-exporter-otlp-proto-http==1.29.0
+    # via opentelemetry-exporter-otlp
+opentelemetry-instrumentation==0.50b0
+    # via
+    #   opentelemetry-distro
+    #   opentelemetry-instrumentation-logging
+    #   prefect
+opentelemetry-instrumentation-logging==0.50b0
+    # via prefect
+opentelemetry-proto==1.29.0
+    # via
+    #   opentelemetry-exporter-otlp-proto-common
+    #   opentelemetry-exporter-otlp-proto-grpc
+    #   opentelemetry-exporter-otlp-proto-http
+opentelemetry-sdk==1.29.0
+    # via
+    #   opentelemetry-distro
+    #   opentelemetry-exporter-otlp-proto-grpc
+    #   opentelemetry-exporter-otlp-proto-http
+opentelemetry-semantic-conventions==0.50b0
+    # via
+    #   opentelemetry-instrumentation
+    #   opentelemetry-sdk
 orjson==3.10.12
     # via prefect
 packaging==24.2
     # via
+    #   opentelemetry-instrumentation
     #   prefect
     #   pytest
 parso==0.8.4
@@ -205,7 +259,7 @@ platformdirs==4.3.6
     # via textual
 pluggy==1.5.0
     # via pytest
-prefect==3.1.6
+prefect==3.1.7
     # via -r requirements.in
 prometheus-client==0.21.1
     # via prefect
@@ -213,6 +267,10 @@ prompt-toolkit==3.0.48
     # via
     #   ipython
     #   marvin
+protobuf==5.29.1
+    # via
+    #   googleapis-common-protos
+    #   opentelemetry-proto
 ptyprocess==0.7.0
     # via pexpect
 pure-eval==0.2.3
@@ -254,6 +312,8 @@ python-dotenv==1.0.1
     # via pydantic-settings
 python-slugify==8.0.4
     # via prefect
+python-socks==2.5.3
+    # via prefect
 pytz==2024.2
     # via
     #   croniter
@@ -278,6 +338,7 @@ requests==2.32.3
     #   apprise
     #   docker
     #   mechanicalsoup
+    #   opentelemetry-exporter-otlp-proto-http
     #   requests-oauthlib
     #   tiktoken
 requests-oauthlib==2.0.0
@@ -357,6 +418,7 @@ typing-extensions==4.12.2
     #   marvin
     #   mypy
     #   openai
+    #   opentelemetry-sdk
     #   prefect
     #   pydantic
     #   pydantic-core
@@ -391,6 +453,8 @@ wcwidth==0.2.13
 websockets==13.1
     # via prefect
 wrapt==1.17.0
-    # via deprecated
+    # via
+    #   deprecated
+    #   opentelemetry-instrumentation
 zipp==3.21.0
     # via importlib-metadata

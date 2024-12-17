@@ -1,4 +1,4 @@
-prefect>=3
+prefect[otel]>=3
 
 #prefect-gcp
 # #-e ~/src/github.com/PrefectHQ/prefect-gcp
