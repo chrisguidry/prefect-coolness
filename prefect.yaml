@@ -81,3 +81,29 @@ deployments:
     job_variables: {}
   enforce_parameter_schema: true
   schedules: []
+- name: local
+  version:
+  tags: []
+  description:
+  entrypoint: ping.py:ping
+  parameters: {}
+  work_pool:
+    name: coolness-at-home
+    work_queue_name:
+    job_variables: {}
+  enforce_parameter_schema: true
+  schedules: []
+  concurrency_limit:
+- name: local
+  version:
+  tags: []
+  description:
+  entrypoint: pong.py:pong
+  parameters: {}
+  work_pool:
+    name: coolness-at-home
+    work_queue_name:
+    job_variables: {}
+  enforce_parameter_schema: true
+  schedules: []
+  concurrency_limit:
