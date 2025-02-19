@@ -1,10 +1,5 @@
-prefect[otel]>=3.1.12
-
-#prefect-gcp
-# #-e ~/src/github.com/PrefectHQ/prefect-gcp
-
-#prefect-kubernetes
-# #-e ~/src/github.com/PrefectHQ/prefect-kubernetes
+-e ../../PrefectHQ/prefect[otel]
+-e ../../PrefectHQ/prefect-cloud
 
 marvin
 
