@@ -4,10 +4,10 @@ from prefect import flow
 
 
 @flow
-async def faily():
+async def exity():
     import sys
     sys.exit(42)
 
 
 if __name__ == "__main__":
-    asyncio.run(faily())
+    asyncio.run(exity())
