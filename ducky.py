@@ -3,6 +3,9 @@ from pathlib import Path
 import duckdb
 from prefect import cache_policies, flow, task
 
+# Uses the public dataset from Ookla:
+# https://registry.opendata.aws/speedtest-global-performance/
+
 
 @flow(log_prints=True)
 def analyze_download_speeds():
@@ -18,12 +21,7 @@ def analyze_download_speeds():
     print(files)
 
     with duckdb.connect(database=":memory:") as cn:
-        cn.sql(
-            """
-            INSTALL spatial;
-            LOAD spatial;
-            """
-        )
+        cn.sql("INSTALL spatial; LOAD spatial;")
 
         biggest_increases = cn.sql(
             f"""
@@ -120,6 +118,7 @@ def download_ookla_file(year: int, quarter: int) -> Path:
 
     print(f"Downloading {year}-Q{quarter} data...")
     with duckdb.connect(database=":memory:") as cn:
+        cn.sql("INSTALL httpfs; LOAD httpfs;")
         cn.sql(
             f"COPY (SELECT * FROM '{source_file}') to '{local_file}' (FORMAT PARQUET)"
         )
