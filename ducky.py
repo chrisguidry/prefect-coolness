@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import duckdb
 from prefect import flow, task
 
@@ -17,8 +15,6 @@ OOKLA_FILE_FORMAT = (
 
 @flow(log_prints=True)
 def analyze_download_speeds():
-    Path("ookla").mkdir(parents=True, exist_ok=True)
-
     filenames = []
     first_year, last_year = 2019, 2024
     for year in range(first_year, last_year + 1):
@@ -46,7 +42,14 @@ def analyze_download_speeds():
 @task
 def get_biggest_increases(filenames: list[str], first_year: int, last_year: int):
     with duckdb.connect(database=":memory:") as cn:
-        cn.sql("INSTALL spatial; LOAD spatial;")
+        cn.sql("""
+            INSTALL spatial;
+            LOAD spatial;
+
+            SET temp_directory = '/tmp';
+            SET memory_limit = '7GB';
+            SET max_temp_directory_size = '7GB';
+        """)
 
         params = {
             "filenames": filenames,
@@ -94,7 +97,14 @@ def get_biggest_increases(filenames: list[str], first_year: int, last_year: int)
 @task
 def get_biggest_decreases(filenames: list[str], first_year: int, last_year: int):
     with duckdb.connect(database=":memory:") as cn:
-        cn.sql("INSTALL spatial; LOAD spatial;")
+        cn.sql("""
+            INSTALL spatial;
+            LOAD spatial;
+
+            SET temp_directory = '/tmp';
+            SET memory_limit = '7GB';
+            SET max_temp_directory_size = '7GB';
+        """)
 
         params = {
             "filenames": filenames,
