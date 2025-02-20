@@ -8,6 +8,8 @@ mechanicalsoup
 
 watchdog
 
+duckdb
+
 # development
 mypy
 pytest

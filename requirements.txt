@@ -20,6 +20,8 @@ apprise==1.9.2
     # via prefect
 asgi-lifespan==2.1.0
     # via prefect
+asgiref==3.8.1
+    # via opentelemetry-test-utils
 asttokens==3.0.0
     # via stack-data
 asyncpg==0.30.0
@@ -59,9 +61,7 @@ colorama==0.4.6
 coolname==2.2.0
     # via prefect
 croniter==6.0.0
-    # via
-    #   prefect
-    #   prefect-cloud
+    # via prefect-cloud
 cryptography==44.0.1
     # via prefect
 dateparser==1.2.1
@@ -78,6 +78,8 @@ distro==1.9.0
     # via openai
 docker==7.1.0
     # via prefect
+duckdb==1.2.0
+    # via -r requirements.in
 exceptiongroup==1.2.2
     # via prefect
 executing==2.2.0
@@ -205,6 +207,7 @@ opentelemetry-api==1.30.0
     #   opentelemetry-instrumentation-logging
     #   opentelemetry-sdk
     #   opentelemetry-semantic-conventions
+    #   opentelemetry-test-utils
     #   prefect
 opentelemetry-distro==0.51b0
     # via prefect
@@ -235,10 +238,13 @@ opentelemetry-sdk==1.30.0
     #   opentelemetry-distro
     #   opentelemetry-exporter-otlp-proto-grpc
     #   opentelemetry-exporter-otlp-proto-http
+    #   opentelemetry-test-utils
 opentelemetry-semantic-conventions==0.51b0
     # via
     #   opentelemetry-instrumentation
     #   opentelemetry-sdk
+opentelemetry-test-utils==0.51b0
+    # via prefect
 orjson==3.10.15
     # via prefect
 packaging==24.2
@@ -360,7 +366,7 @@ rich==13.9.4
     #   prefect-cloud
     #   textual
     #   typer
-rpds-py==0.22.3
+rpds-py==0.23.0
     # via
     #   jsonschema
     #   referencing
@@ -368,7 +374,7 @@ ruamel-yaml==0.18.10
     # via prefect
 ruamel-yaml-clib==0.2.12
     # via ruamel-yaml
-ruff==0.9.6
+ruff==0.9.7
     # via -r requirements.in
 shellingham==1.5.4
     # via typer

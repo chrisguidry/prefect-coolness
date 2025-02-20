@@ -6,3 +6,4 @@ __pycache__
 .storage-credentials.json
 .vscode
 .envrc
+ookla/sources
