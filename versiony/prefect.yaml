@@ -7,10 +7,10 @@ name: versiony
 prefect-version: 3.2.13.dev3
 
 # build section allows you to manage and build docker images
-build: null
+build:
 
 # push section allows you to manage if and how this project is uploaded to remote locations
-push: null
+push:
 
 # pull section allows you to provide instructions for cloning this project in remote locations
 pull:
@@ -21,14 +21,14 @@ pull:
 # the deployments section allows you to provide configuration for deploying flows
 deployments:
 - name: multiversal
-  version: null
+  version:
   tags: []
-  concurrency_limit: null
-  description: null
+  concurrency_limit:
+  description: Ain't this the jam?
   entrypoint: version_me.py:version_me
-  parameters: {}
+  parameters: {"foo": "bar"}
   work_pool:
     name: managed
-    work_queue_name: null
+    work_queue_name:
     job_variables: {}
   schedules: []
