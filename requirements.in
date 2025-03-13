@@ -1,5 +1,4 @@
--e ../../PrefectHQ/prefect[otel]
--e ../../PrefectHQ/prefect-cloud
+prefect>=3.2.13.dev3
 
 marvin
 
