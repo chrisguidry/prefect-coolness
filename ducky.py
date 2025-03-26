@@ -43,12 +43,14 @@ def analyze_download_speeds():
 def get_biggest_increases(filenames: list[str], first_year: int, last_year: int):
     with duckdb.connect(database=":memory:") as cn:
         cn.sql("""
+            INSTALL httpfs;
             INSTALL spatial;
+            LOAD httpfs;
             LOAD spatial;
 
             SET temp_directory = '/tmp';
-            SET memory_limit = '3GB';
-            SET max_temp_directory_size = '3GB';
+            SET memory_limit = '15GB';
+            SET max_temp_directory_size = '120GB';
         """)
 
         params = {
@@ -98,12 +100,14 @@ def get_biggest_increases(filenames: list[str], first_year: int, last_year: int)
 def get_biggest_decreases(filenames: list[str], first_year: int, last_year: int):
     with duckdb.connect(database=":memory:") as cn:
         cn.sql("""
+            INSTALL httpfs;
             INSTALL spatial;
+            LOAD httpfs;
             LOAD spatial;
 
             SET temp_directory = '/tmp';
-            SET memory_limit = '3GB';
-            SET max_temp_directory_size = '3GB';
+            SET memory_limit = '15GB';
+            SET max_temp_directory_size = '120GB';
         """)
 
         params = {

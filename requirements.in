@@ -1,4 +1,5 @@
 prefect>=3.2.13.dev3
+-e ../../PrefectHQ/prefect-cloud
 
 marvin
 
