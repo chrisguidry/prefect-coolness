@@ -1,5 +1,5 @@
 import duckdb
-from prefect import flow, task
+from prefect import cache_policies, flow, task
 
 # Uses the public dataset from Ookla:
 # https://registry.opendata.aws/speedtest-global-performance/
@@ -16,31 +16,19 @@ OOKLA_FILE_FORMAT = (
 @flow(log_prints=True)
 def analyze_download_speeds():
     filenames = []
-    first_year, last_year = 2019, 2024
+    first_year, last_year = 2023, 2024
     for year in range(first_year, last_year + 1):
-        for quarter in range(1, 5):
+        first_quarter, last_quarter = 4, 4
+        for quarter in range(first_quarter, last_quarter + 1):
             filenames.append(
                 OOKLA_FILE_FORMAT.format(
                     year=year, quarter=quarter, start_month=1 + (quarter - 1) * 3
                 )
             )
 
-    biggest_increases_future = get_biggest_increases.submit(
-        filenames, first_year, last_year
-    )
-    biggest_decreases_future = get_biggest_decreases.submit(
-        filenames, first_year, last_year
-    )
+    for filename in filenames:
+        print(filename)
 
-    biggest_increases = biggest_increases_future.result()
-    biggest_decreases = biggest_decreases_future.result()
-
-    print(biggest_increases)
-    print(biggest_decreases)
-
-
-@task
-def get_biggest_increases(filenames: list[str], first_year: int, last_year: int):
     with duckdb.connect(database=":memory:") as cn:
         cn.sql("""
             INSTALL httpfs;
@@ -49,18 +37,27 @@ def get_biggest_increases(filenames: list[str], first_year: int, last_year: int)
             LOAD spatial;
 
             SET temp_directory = '/tmp';
-            SET memory_limit = '7.5GB';
+            SET memory_limit = '6GB';
             SET max_temp_directory_size = '62GB';
         """)
+        biggest_increases = get_biggest_increases(cn, filenames, first_year, last_year)
+        print("Biggest increases:\n", biggest_increases)
+        biggest_decreases = get_biggest_decreases(cn, filenames, first_year, last_year)
+        print("Biggest decreases:\n", biggest_decreases)
 
-        params = {
-            "filenames": filenames,
-            "first_year": first_year,
-            "last_year": last_year,
-        }
 
-        return cn.sql(
-            """
+@task(cache_policy=cache_policies.NO_CACHE)
+def get_biggest_increases(
+    cn: duckdb.DuckDBPyConnection, filenames: list[str], first_year: int, last_year: int
+):
+    params = {
+        "filenames": filenames,
+        "first_year": first_year,
+        "last_year": last_year,
+    }
+
+    return cn.sql(
+        """
             WITH base AS (
                 SELECT
                     tile,
@@ -92,32 +89,22 @@ def get_biggest_increases(filenames: list[str], first_year: int, last_year: int)
             ORDER BY speed_change_mbps DESC
             LIMIT 10
             """,
-            params=params,
-        )
+        params=params,
+    )
 
 
-@task
-def get_biggest_decreases(filenames: list[str], first_year: int, last_year: int):
-    with duckdb.connect(database=":memory:") as cn:
-        cn.sql("""
-            INSTALL httpfs;
-            INSTALL spatial;
-            LOAD httpfs;
-            LOAD spatial;
+@task(cache_policy=cache_policies.NO_CACHE)
+def get_biggest_decreases(
+    cn: duckdb.DuckDBPyConnection, filenames: list[str], first_year: int, last_year: int
+):
+    params = {
+        "filenames": filenames,
+        "first_year": first_year,
+        "last_year": last_year,
+    }
 
-            SET temp_directory = '/tmp';
-            SET memory_limit = '7.5GB';
-            SET max_temp_directory_size = '62GB';
-        """)
-
-        params = {
-            "filenames": filenames,
-            "first_year": first_year,
-            "last_year": last_year,
-        }
-
-        return cn.sql(
-            """
+    return cn.sql(
+        """
             WITH base AS (
                 SELECT
                     tile,
@@ -149,8 +136,8 @@ def get_biggest_decreases(filenames: list[str], first_year: int, last_year: int)
             ORDER BY speed_change_mbps ASC
             LIMIT 10
             """,
-            params=params,
-        )
+        params=params,
+    )
 
 
 if __name__ == "__main__":
