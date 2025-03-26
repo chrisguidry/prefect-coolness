@@ -18,7 +18,7 @@ def analyze_download_speeds():
     filenames = []
     first_year, last_year = 2023, 2024
     for year in range(first_year, last_year + 1):
-        first_quarter, last_quarter = 4, 4
+        first_quarter, last_quarter = 3, 4
         for quarter in range(first_quarter, last_quarter + 1):
             filenames.append(
                 OOKLA_FILE_FORMAT.format(
@@ -37,8 +37,9 @@ def analyze_download_speeds():
             LOAD spatial;
 
             SET temp_directory = '/tmp';
-            SET memory_limit = '6GB';
-            SET max_temp_directory_size = '62GB';
+            -- forces more to flush to disk, will use ~10GB RAM at its peak
+            SET memory_limit = '4GB';
+            SET max_temp_directory_size = '120GB';
         """)
         biggest_increases = get_biggest_increases(cn, filenames, first_year, last_year)
         print("Biggest increases:\n", biggest_increases)
