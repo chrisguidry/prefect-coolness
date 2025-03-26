@@ -49,8 +49,8 @@ def get_biggest_increases(filenames: list[str], first_year: int, last_year: int)
             LOAD spatial;
 
             SET temp_directory = '/tmp';
-            SET memory_limit = '15GB';
-            SET max_temp_directory_size = '120GB';
+            SET memory_limit = '7.5GB';
+            SET max_temp_directory_size = '62GB';
         """)
 
         params = {
@@ -106,8 +106,8 @@ def get_biggest_decreases(filenames: list[str], first_year: int, last_year: int)
             LOAD spatial;
 
             SET temp_directory = '/tmp';
-            SET memory_limit = '15GB';
-            SET max_temp_directory_size = '120GB';
+            SET memory_limit = '7.5GB';
+            SET max_temp_directory_size = '62GB';
         """)
 
         params = {
