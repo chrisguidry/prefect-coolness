@@ -4,11 +4,11 @@ from prefect import flow, get_run_logger, task
 
 
 @flow
-def logtastrophe():
+def logtastrophe(how_many_bottles: int = 99):
     logger = get_run_logger()
     logger.info("Y'all ready for this?")
     logger.info("Stop me if you've heard it...")
-    futures = bottles.map(range(99, 1, -1))
+    futures = bottles.map(range(how_many_bottles, 1, -1))
     for future in futures:
         future.wait()
     logger.info("I guess you were")
@@ -19,10 +19,10 @@ def bottles(n: int):
     logger = get_run_logger()
     logger.info(f"{n} bottles of beer on the wall")
     logger.info(f"{n} bottles of beer!")
-    logger.info(f"take one down, pass it around, {n-1} bottles of beer on the wall")
+    logger.info(f"take one down, pass it around, {n - 1} bottles of beer on the wall")
     if random.random() < 0.10:
         raise ValueError("oops, I dropped it")
 
 
 if __name__ == "__main__":
-    logtastrophe()
+    logtastrophe(how_many_bottles=99)
