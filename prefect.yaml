@@ -76,7 +76,7 @@ deployments:
   entrypoint: named.py:say_hello
   parameters: {}
   work_pool:
-    name: default
+    name: hello
     work_queue_name:
     job_variables: {}
   enforce_parameter_schema: true

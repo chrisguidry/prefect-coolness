@@ -1,5 +1,5 @@
-prefect>=3.3
-prefect-cloud
+-e ../../PrefectHQ/prefect
+-e ../../PrefectHQ/prefect-cloud
 
 marvin
 
