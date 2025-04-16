@@ -1,5 +1,5 @@
-prefect>=3.2.13.dev3
--e ../../PrefectHQ/prefect-cloud
+prefect>=3.3
+prefect-cloud
 
 marvin
 
