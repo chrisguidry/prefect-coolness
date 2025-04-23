@@ -1,0 +1,29 @@
+name: Deploy Prefect Flows
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [dev, stg, prd]
+    environment: Prefect Cloud [${{ matrix.environment }}]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        id: setup_python
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install uv
+          uv pip install --system git+https://github.com/PrefectHQ/prefect.git@main
+
+      - name: Deploy Prefect flows to ${{ matrix.environment }}
+        run: prefect --no-prompt deploy --all

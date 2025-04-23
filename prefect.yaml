@@ -20,90 +20,59 @@ pull:
 
 # the deployments section allows you to provide configuration for deploying flows
 deployments:
-- name: local
-  version:
-  tags: []
-  description:
-  entrypoint: worker-demo/where_am_i.py:where_am_i
-  parameters: {}
-  work_pool:
-    name: coolness-at-home
-    work_queue_name:
-    job_variables: {}
-  enforce_parameter_schema: true
-  schedules: []
-- name: on-gcp
-  version:
-  tags: []
-  description:
-  entrypoint: worker-demo/where_am_i.py:where_am_i
-  parameters: {}
-  work_pool:
-    name: coolness-on-gcp
-    work_queue_name:
-    job_variables: {}
-  enforce_parameter_schema: true
-  schedules: []
+# - name: local
+#   entrypoint: worker-demo/where_am_i.py:where_am_i
+#   enforce_parameter_schema: true
+#   version_type: vcs:git
+#   work_pool:
+#     name: coolness-at-home
+
+# - name: on-gcp
+#   entrypoint: worker-demo/where_am_i.py:where_am_i
+#   enforce_parameter_schema: true
+#   version_type: vcs:git
+#   work_pool:
+#     name: coolness-on-gcp
+
 - name: on-prefect
-  version:
-  tags: []
-  description:
   entrypoint: worker-demo/where_am_i.py:where_am_i
-  parameters: {}
+  enforce_parameter_schema: true
+  version_type: vcs:git
   work_pool:
     name: coolness-on-prefect
-    work_queue_name:
-    job_variables: {}
-  enforce_parameter_schema: true
-  schedules: []
-- name: on-minikube
-  version:
-  tags: []
-  description:
-  entrypoint: worker-demo/where_am_i.py:where_am_i
-  parameters: {}
-  work_pool:
-    name: coolness-on-minikube
-    work_queue_name:
-    job_variables: {}
-  enforce_parameter_schema: true
-  schedules: []
+
+# - name: on-minikube
+#   entrypoint: worker-demo/where_am_i.py:where_am_i
+#   enforce_parameter_schema: true
+#   version_type: vcs:git
+#   work_pool:
+#     name: coolness-on-minikube
+
 - name: '[Say ✨ my ✨ name]'
-  version:
-  tags: []
-  concurrency_limit:
-  description:
+  version_type: vcs:git
   entrypoint: named.py:say_hello
-  parameters: {}
-  work_pool:
-    name: hello
-    work_queue_name:
-    job_variables: {}
   enforce_parameter_schema: true
-  schedules: []
-- name: local
-  version:
-  tags: []
-  description:
-  entrypoint: ping.py:ping
-  parameters: {}
+  version_type: vcs:git
   work_pool:
-    name: coolness-at-home
-    work_queue_name:
-    job_variables: {}
+    name: coolness-on-prefect
+
+# - name: local
+#   entrypoint: ping.py:ping
+#   enforce_parameter_schema: true
+#   version_type: vcs:git
+#   work_pool:
+#     name: coolness-at-home
+
+# - name: local
+#   entrypoint: pong.py:pong
+#   enforce_parameter_schema: true
+#   version_type: vcs:git
+#   work_pool:
+#     name: coolness-at-home
+
+- name: versionish
+  entrypoint: named.py:say_hello
   enforce_parameter_schema: true
-  schedules: []
-  concurrency_limit:
-- name: local
-  version:
-  tags: []
-  description:
-  entrypoint: pong.py:pong
-  parameters: {}
+  version_type: vcs:git
   work_pool:
-    name: coolness-at-home
-    work_queue_name:
-    job_variables: {}
-  enforce_parameter_schema: true
-  schedules: []
-  concurrency_limit:
+    name: coolness-on-prefect
