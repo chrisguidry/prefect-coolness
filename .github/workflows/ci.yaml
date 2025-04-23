@@ -11,6 +11,11 @@ jobs:
       matrix:
         environment: [dev, stg, prd]
     environment: Prefect Cloud [${{ matrix.environment }}]
+    env:
+      PREFECT_CLOUD_UI_URL: ${{ vars.PREFECT_CLOUD_UI_URL }}
+      PREFECT_CLOUD_API_URL: ${{ vars.PREFECT_CLOUD_API_URL }}
+      PREFECT_API_URL: ${{ vars.PREFECT_API_URL }}
+      PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
     steps:
       - uses: actions/checkout@v4
 
