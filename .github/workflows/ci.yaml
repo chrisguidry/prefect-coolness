@@ -33,4 +33,7 @@ jobs:
         run: prefect --no-prompt deploy --all
 
       - name: Run hello on ${{ matrix.environment }}
-        run: prefect --no-prompt deployment run 'hello/[Say ✨ my ✨ name]' --param name=Github --watch --watch-timeout 60
+        run: |
+          prefect deployment run 'say-hello/[Say ✨ my ✨ name]' \
+          --param name=Github \
+          --watch --watch-timeout 60
