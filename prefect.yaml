@@ -1,4 +1,4 @@
-prefect-version: 3.0.0rc11
+prefect-version: 3.3.5
 
 build:
 
@@ -30,20 +30,6 @@ deployments:
       env:
         PREFECT_CLOUD_API_URL: "{{ $PREFECT_CLOUD_API_URL }}"
 
-# - name: local
-#   entrypoint: worker-demo/where_am_i.py:where_am_i
-#   enforce_parameter_schema: true
-#   version_type: vcs:git
-#   work_pool:
-#     name: coolness-at-home
-
-# - name: on-gcp
-#   entrypoint: worker-demo/where_am_i.py:where_am_i
-#   enforce_parameter_schema: true
-#   version_type: vcs:git
-#   work_pool:
-#     name: coolness-on-gcp
-
 - name: on-prefect
   entrypoint: worker-demo/where_am_i.py:where_am_i
   enforce_parameter_schema: true
@@ -54,9 +40,23 @@ deployments:
       env:
         PREFECT_CLOUD_API_URL: "{{ $PREFECT_CLOUD_API_URL }}"
 
+# - name: local
+#   entrypoint: worker-demo/where_am_i.py:where_am_i
+#   enforce_parameter_schema: true
+#   version_type: vcs:git
+#   work_pool:
+#     name: coolness-at-home
+
 # - name: on-minikube
 #   entrypoint: worker-demo/where_am_i.py:where_am_i
 #   enforce_parameter_schema: true
 #   version_type: vcs:git
 #   work_pool:
 #     name: coolness-on-minikube
+
+# - name: on-gcp
+#   entrypoint: worker-demo/where_am_i.py:where_am_i
+#   enforce_parameter_schema: true
+#   version_type: vcs:git
+#   work_pool:
+#     name: coolness-on-gcp

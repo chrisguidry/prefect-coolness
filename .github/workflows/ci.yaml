@@ -29,11 +29,8 @@ jobs:
           pip install uv
           uv pip install --system git+https://github.com/PrefectHQ/prefect.git@main
 
-      - name: Deploy on-prefect to ${{ matrix.environment }}
-        run: prefect --no-prompt deploy worker-demo/where_am_i.py:where_am_i --name on-prefect --version-type vcs:github
+      - name: Deploy flows to ${{ matrix.environment }}
+        run: prefect --no-prompt deploy --all
 
-      - name: Deploy [Say ✨ my ✨ name] to ${{ matrix.environment }}
-        run: prefect --no-prompt deploy named.py:say_hello --name "[Say ✨ my ✨ name]" --version-type vcs:github
-
-      - name: Deploy versionish to ${{ matrix.environment }}
-        run: prefect --no-prompt deploy named.py:say_hello --name versionish --version-type vcs:github
+      - name: Run hello on ${{ matrix.environment }}
+        run: prefect --no-prompt deployment run 'hello/[Say ✨ my ✨ name]' --param name=Github --watch --watch-timeout 60
