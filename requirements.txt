@@ -133,7 +133,7 @@ griffe==1.7.2
     #   pydantic-ai-slim
 groq==0.22.0
     # via pydantic-ai-slim
-h11==0.14.0
+h11==0.16.0
     # via
     #   httpcore
     #   uvicorn
