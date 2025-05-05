@@ -3,7 +3,7 @@ from prefect import flow, get_run_logger
 
 @flow
 def say_hello(name: str = "World"):
-    get_run_logger().info(f"Hello, {name}!")
+    get_run_logger().info(f"Hello there, {name}!")
 
 
 if __name__ == "__main__":
