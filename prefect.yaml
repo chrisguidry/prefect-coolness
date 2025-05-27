@@ -5,38 +5,55 @@ build:
 push:
 
 pull:
-- prefect.deployments.steps.git_clone:
-    repository: https://github.com/chrisguidry/prefect-coolness.git
-    branch: main
+  - prefect.deployments.steps.git_clone:
+      repository: https://github.com/chrisguidry/prefect-coolness.git
+      branch: main
 
 deployments:
-- name: '[Say ✨ my ✨ name]'
-  entrypoint: hello.py:say_hello
-  enforce_parameter_schema: true
-  work_pool:
-    name: coolness-on-prefect
-    job_variables:
-      env:
-        PREFECT_CLOUD_API_URL: "{{ $PREFECT_CLOUD_API_URL }}"
+  - name: "[Say ✨ my ✨ name]"
+    entrypoint: hello.py:say_hello
+    enforce_parameter_schema: true
+    work_pool:
+      name: coolness-on-prefect
+      job_variables:
+        env:
+          PREFECT_CLOUD_API_URL: "{{ $PREFECT_CLOUD_API_URL }}"
 
-- name: versionish
-  entrypoint: hello.py:say_hello
-  enforce_parameter_schema: true
-  work_pool:
-    name: coolness-on-prefect
-    job_variables:
-      env:
-        PREFECT_CLOUD_API_URL: "{{ $PREFECT_CLOUD_API_URL }}"
+  - name: versionish
+    entrypoint: hello.py:say_hello
+    enforce_parameter_schema: true
+    work_pool:
+      name: coolness-on-prefect
+      job_variables:
+        env:
+          PREFECT_CLOUD_API_URL: "{{ $PREFECT_CLOUD_API_URL }}"
 
-- name: on-prefect
-  entrypoint: worker-demo/where_am_i.py:where_am_i
-  enforce_parameter_schema: true
-  work_pool:
-    name: coolness-on-prefect
-    job_variables:
-      env:
-        PREFECT_CLOUD_API_URL: "{{ $PREFECT_CLOUD_API_URL }}"
+  - name: on-prefect
+    entrypoint: worker-demo/where_am_i.py:where_am_i
+    enforce_parameter_schema: true
+    work_pool:
+      name: coolness-on-prefect
+      job_variables:
+        env:
+          PREFECT_CLOUD_API_URL: "{{ $PREFECT_CLOUD_API_URL }}"
 
+  - name: ping
+    entrypoint: ping.py:ping
+    enforce_parameter_schema: true
+    work_pool:
+      name: coolness-on-prefect
+      job_variables:
+        env:
+          PREFECT_CLOUD_API_URL: "{{ $PREFECT_CLOUD_API_URL }}"
+
+  - name: on-prefect
+    entrypoint: pong.py:pong
+    enforce_parameter_schema: true
+    work_pool:
+      name: coolness-on-prefect
+      job_variables:
+        env:
+          PREFECT_CLOUD_API_URL: "{{ $PREFECT_CLOUD_API_URL }}"
 # - name: local
 #   entrypoint: worker-demo/where_am_i.py:where_am_i
 #   enforce_parameter_schema: true

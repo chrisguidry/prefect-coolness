@@ -2,8 +2,9 @@ from prefect import flow
 
 
 @flow
-def ping():
-    return "ping"
+def ping(value: str = "ping"):
+    print(value)
+    return value
 
 
 if __name__ == "__main__":
