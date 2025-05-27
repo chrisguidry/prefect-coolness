@@ -1,7 +1,7 @@
 from prefect import flow
 
 
-@flow
+@flow(log_prints=True)
 def pong(value: str = "pong"):
     print(value)
     return value

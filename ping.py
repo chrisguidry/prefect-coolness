@@ -1,7 +1,7 @@
 from prefect import flow
 
 
-@flow
+@flow(log_prints=True)
 def ping(value: str = "ping"):
     print(value)
     return value
