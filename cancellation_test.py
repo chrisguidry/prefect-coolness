@@ -35,7 +35,7 @@ def quick_subflow(subflow_id: int) -> List[int]:
     logger.info(f"Quick subflow {subflow_id} starting")
     
     results = []
-    for i in range(3):
+    for i in range(8):
         task_result = slow_task(f"{subflow_id}_{i}", sleep_duration=random.uniform(0.5, 1.5))
         results.append(task_result)
     
@@ -51,7 +51,7 @@ def heavy_subflow(subflow_id: int) -> int:
     
     # Generate some initial data
     initial_tasks = []
-    for i in range(4):
+    for i in range(10):
         task_result = slow_task(f"{subflow_id}_init_{i}", sleep_duration=random.uniform(2.0, 4.0))
         initial_tasks.append(task_result)
     
@@ -83,10 +83,10 @@ def parallel_worker_subflow(worker_id: int, task_count: int = 5) -> List[int]:
 
 @flow
 def cancellation_test_flow(
-    num_quick_subflows: int = 3,
-    num_heavy_subflows: int = 2,
-    num_parallel_workers: int = 2,
-    parallel_tasks_per_worker: int = 4
+    num_quick_subflows: int = 10,
+    num_heavy_subflows: int = 8,
+    num_parallel_workers: int = 6,
+    parallel_tasks_per_worker: int = 12
 ) -> dict:
     """
     Main flow that orchestrates multiple subflows and tasks for testing cancellation logic.
@@ -135,7 +135,7 @@ def cancellation_test_flow(
     # Submit some individual long-running tasks for true concurrency
     logger.info("🎯 Running individual long-running tasks...")
     individual_futures = []
-    for i in range(3):
+    for i in range(15):
         future = slow_task.submit(f"individual_{i}", sleep_duration=random.uniform(3.0, 6.0))
         individual_futures.append(future)
     
