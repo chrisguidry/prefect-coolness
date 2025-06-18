@@ -54,6 +54,15 @@ deployments:
       job_variables:
         env:
           PREFECT_CLOUD_API_URL: "{{ $PREFECT_CLOUD_API_URL }}"
+
+  - name: cancellation-test
+    entrypoint: cancellation_test.py:cancellation_test_flow
+    enforce_parameter_schema: true
+    work_pool:
+      name: coolness-on-prefect
+      job_variables:
+        env:
+          PREFECT_CLOUD_API_URL: "{{ $PREFECT_CLOUD_API_URL }}"
 # - name: local
 #   entrypoint: worker-demo/where_am_i.py:where_am_i
 #   enforce_parameter_schema: true
